@@ -3,6 +3,7 @@ package com.mygdx.entity;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.math.Vector2;
 import com.uwsoft.editor.renderer.components.DimensionsComponent;
 import com.uwsoft.editor.renderer.components.TransformComponent;
@@ -36,8 +37,12 @@ public class Cat implements IScript{
 		// ComponentRetriever is the fastest way to retrieve components
 		transformComponent = ComponentRetriever.get(entity, TransformComponent.class);
 		dimensionsComponent = ComponentRetriever.get(entity, DimensionsComponent.class);
+		
 		spriter = ComponentRetriever.get(entity, SpriteAnimationComponent.class);
 		spriterState = ComponentRetriever.get(entity, SpriteAnimationStateComponent.class);
+		
+		 
+
 		
 		System.out.println(spriter.currentAnimation);
 		
@@ -52,7 +57,7 @@ public class Cat implements IScript{
 			transformComponent.scaleX +=0.1f;
 			transformComponent.scaleY +=0.1f;
 			transformComponent.y += 0.1f;
-			spriter.animationName = "eat";
+			spriterState.set(spriter.frameRangeMap.get("eat"), 10, Animation.PlayMode.LOOP);
 		}
 	}
 	
