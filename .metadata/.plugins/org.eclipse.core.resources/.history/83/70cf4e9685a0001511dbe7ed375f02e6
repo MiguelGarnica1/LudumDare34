@@ -1,0 +1,37 @@
+package com.mygdx.game;
+
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
+
+public class Sushi {
+
+	private Texture tex;
+	private TextureRegion reg;
+	private int id;
+	
+	private Vector2 position;
+	private float speed = 150;
+	
+
+	public Sushi(int identifier) {
+		id = identifier;
+		init();
+	}
+
+	public void init() {
+		if (id == 1) {
+			reg = new TextureRegion(tex, 0,0,32,32);
+		}
+		if (id == 2) {
+			reg = new TextureRegion(tex, 32,0,32,32);
+		}
+		if (id == 3) {
+			reg = new TextureRegion(tex, 0,32,32,32);
+		}
+		if (id == 4) {
+			reg = new TextureRegion(tex, 32,32,32,32);
+		}
+	}
+
+}
