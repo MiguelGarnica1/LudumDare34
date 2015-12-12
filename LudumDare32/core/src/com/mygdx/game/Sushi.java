@@ -1,5 +1,7 @@
 package com.mygdx.game;
 
+import java.util.Random;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Texture;
@@ -11,9 +13,10 @@ import com.badlogic.gdx.math.Vector2;
 public class Sushi {
 
 	private Texture tex;
+	private TextureRegion[] sushis;
 	private TextureRegion reg;
 	private int id;
-	
+	private Random randSushi;
 	private Vector2 position;
 	private float speed = 150;
 	private float width = 100;
@@ -21,40 +24,53 @@ public class Sushi {
 	public Sushi(int identifier) {
 		id = identifier;
 		tex = new Texture("sushi.png");
+		sushis = new TextureRegion[4];
+		randSushi = new Random();
 		position = new Vector2(100,100);
 		init();
 	}
 
 	public void init() {
-		if (id == 1) {
-			reg = new TextureRegion(tex, 0,0,32,32);
-		}
-		if (id == 2) {
-			reg = new TextureRegion(tex, 32,0,32,32);
-		}
-		if (id == 3) {
-			reg = new TextureRegion(tex, 0,32,32,32);
-		}
-		if (id == 4) {
-			reg = new TextureRegion(tex, 32,32,32,32);
-		}
+		sushis[0] = new TextureRegion(tex, 0,0,32,32);
+		sushis[1] = new TextureRegion(tex, 32,0,32,32);
+		sushis[2] = new TextureRegion(tex, 0,32,32,32);
+		sushis[3] =  new TextureRegion(tex, 32,32,32,32);
+		setSushiTexure();
+		
 	}
+
 	
 	public void update(){
 		if(Gdx.input.isKeyJustPressed(Keys.SPACE)){
-			if(id<4){
-				id++;
-			}else{
-				id = 1;
-			}
+			id = generateRandomSushi(4);
+			setSushiTexure();
 		}
-		init();
+		
 	}
 	
 	public void render(Batch batch){
 		batch.begin();
 		batch.draw(reg, position.x, position.y, width/2, width/2, width, width, 1, 1, 0);
 		batch.end();
+	}
+	
+	public int generateRandomSushi(int bound){
+		return randSushi.nextInt(bound)+ 1;
+	}
+	
+	public void setSushiTexure(){
+		if (id == 1) {
+			reg = sushis[0];
+		}
+		if (id == 2) {
+			reg = sushis[1];
+		}
+		if (id == 3) {
+			reg = sushis[2];
+		}
+		if (id == 4) {
+			reg = sushis[3];
+		}
 	}
 	
 	public void dispose(){
