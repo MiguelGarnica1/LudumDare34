@@ -16,7 +16,7 @@ public class Sushi {
 	
 	private Vector2 position;
 	private float speed = 150;
-	
+	private float width = 100;
 
 	public Sushi(int identifier) {
 		id = identifier;
@@ -53,7 +53,7 @@ public class Sushi {
 	
 	public void render(Batch batch){
 		batch.begin();
-		batch.draw(reg, position.x, position.y);
+		batch.draw(reg, position.x, position.y, width/2, width/2, width, width, 1, 1, 0);
 		batch.end();
 	}
 	
