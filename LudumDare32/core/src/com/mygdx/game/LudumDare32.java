@@ -5,6 +5,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.mygdx.entity.Sushi;
+import com.mygdx.handler.HUD;
 import com.uwsoft.editor.renderer.SceneLoader;
 
 public class LudumDare32 extends ApplicationAdapter {
@@ -17,7 +19,7 @@ public class LudumDare32 extends ApplicationAdapter {
 	public void create () {
 		sl = new SceneLoader();
 
-		vp = new FitViewport(800,450);
+		vp = new FitViewport(800,600);
 
 		sl.loadScene("MainScene", vp);
 		sush = new Sushi(2);

@@ -4,6 +4,13 @@ size: 2048,1024
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
+background
+  rotate: false
+  xy: 1028, 74
+  size: 896, 504
+  orig: 896, 504
+  offset: 0, 0
+  index: -1
 background1 (2)
   rotate: false
   xy: 2, 2

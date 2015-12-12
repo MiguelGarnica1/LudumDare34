@@ -1,0 +1,97 @@
+
+Cat Standing.png
+size: 256,256
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+Cat Standing01
+  rotate: false
+  xy: 2, 188
+  size: 60, 60
+  orig: 60, 60
+  offset: 0, 0
+  index: -1
+Cat Standing05
+  rotate: false
+  xy: 2, 188
+  size: 60, 60
+  orig: 60, 60
+  offset: 0, 0
+  index: -1
+Cat Standing08
+  rotate: false
+  xy: 2, 188
+  size: 60, 60
+  orig: 60, 60
+  offset: 0, 0
+  index: -1
+Cat Standing02
+  rotate: false
+  xy: 2, 126
+  size: 60, 60
+  orig: 60, 60
+  offset: 0, 0
+  index: -1
+Cat Standing04
+  rotate: false
+  xy: 2, 126
+  size: 60, 60
+  orig: 60, 60
+  offset: 0, 0
+  index: -1
+Cat Standing03
+  rotate: false
+  xy: 64, 188
+  size: 60, 60
+  orig: 60, 60
+  offset: 0, 0
+  index: -1
+Cat Standing06
+  rotate: false
+  xy: 2, 64
+  size: 60, 60
+  orig: 60, 60
+  offset: 0, 0
+  index: -1
+Cat Standing09
+  rotate: false
+  xy: 2, 64
+  size: 60, 60
+  orig: 60, 60
+  offset: 0, 0
+  index: -1
+Cat Standing07
+  rotate: false
+  xy: 64, 126
+  size: 60, 60
+  orig: 60, 60
+  offset: 0, 0
+  index: -1
+Cat Standing10
+  rotate: false
+  xy: 64, 126
+  size: 60, 60
+  orig: 60, 60
+  offset: 0, 0
+  index: -1
+Cat Standing11
+  rotate: false
+  xy: 126, 188
+  size: 60, 60
+  orig: 60, 60
+  offset: 0, 0
+  index: -1
+Cat Standing13
+  rotate: false
+  xy: 2, 2
+  size: 60, 60
+  orig: 60, 60
+  offset: 0, 0
+  index: -1
+Cat Staning12
+  rotate: false
+  xy: 64, 64
+  size: 60, 60
+  orig: 60, 60
+  offset: 0, 0
+  index: -1
