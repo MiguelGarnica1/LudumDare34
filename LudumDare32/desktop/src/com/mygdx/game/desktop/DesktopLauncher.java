@@ -13,5 +13,6 @@ public class DesktopLauncher {
 		config.resizable = false;
 		
 		new LwjglApplication(new LudumDare32(), config);
+
 	}
 }

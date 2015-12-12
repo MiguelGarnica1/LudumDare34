@@ -10,12 +10,16 @@ import com.uwsoft.editor.renderer.SceneLoader;
 public class LudumDare32 extends ApplicationAdapter {
 	private SceneLoader sl;
 	private Viewport vp;
+	private Sushi sush;
 	
 	@Override
 	public void create () {
 		sl = new SceneLoader();
+
 		vp = new FitViewport(800,450);
+
 		sl.loadScene("MainScene", vp);
+		sush = new Sushi(2);
 		
 	}
 
@@ -25,6 +29,10 @@ public class LudumDare32 extends ApplicationAdapter {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
 		sl.getEngine().update(Gdx.graphics.getDeltaTime());
+
+		sush.render(sl.getBatch());
+		sush.update();
+
 		
 	}
 }
