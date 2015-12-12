@@ -1,0 +1,42 @@
+package com.mygdx.game;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.math.Vector2;
+
+public class HUD {
+
+	private Sushi hudSush;
+	private Vector2 position;
+	private float timeElap;
+	
+	public HUD(){
+		hudSush = new Sushi(1);
+		position = new Vector2(50,400);
+	}
+	
+	public void update(float delta){
+		timeElap += delta;
+		if(timeElap>3f){
+			if(hudSush.getId()<4){
+				hudSush.setId(hudSush.getId()+1);
+			}else{
+				hudSush.setId(1);
+			}
+			timeElap=0;
+		}
+		hudSush.update();
+		
+	}
+	
+	public void render(Batch batch){
+		hudSush.setPosition(position);
+		hudSush.render(batch);
+	}
+	
+	public Sushi getSushi(){
+		return hudSush;
+	}
+	
+}

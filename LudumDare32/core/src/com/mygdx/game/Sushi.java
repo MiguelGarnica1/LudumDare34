@@ -45,7 +45,7 @@ public class Sushi {
 			if(id<4){
 				id++;
 			}else{
-				id = 0;
+				id = 1;
 			}
 		}
 		init();
@@ -83,6 +83,10 @@ public class Sushi {
 
 	public int getId() {
 		return id;
+	}
+	
+	public void setId(int id){
+		this.id = id;
 	}
 	
 	
