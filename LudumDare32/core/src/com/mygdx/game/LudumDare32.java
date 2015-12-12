@@ -14,7 +14,7 @@ public class LudumDare32 extends ApplicationAdapter {
 	@Override
 	public void create () {
 		sl = new SceneLoader();
-		vp = new FitViewport(1280,720);
+		vp = new FitViewport(800,450);
 		sl.loadScene("MainScene", vp);
 		
 	}
@@ -25,5 +25,6 @@ public class LudumDare32 extends ApplicationAdapter {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
 		sl.getEngine().update(Gdx.graphics.getDeltaTime());
+		
 	}
 }
