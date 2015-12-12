@@ -11,6 +11,7 @@ public class LudumDare32 extends ApplicationAdapter {
 	private SceneLoader sl;
 	private Viewport vp;
 	private Sushi sush;
+	private HUD hud;
 	
 	@Override
 	public void create () {
@@ -20,6 +21,8 @@ public class LudumDare32 extends ApplicationAdapter {
 
 		sl.loadScene("MainScene", vp);
 		sush = new Sushi(2);
+		
+		hud = new HUD();
 		
 	}
 
@@ -32,6 +35,9 @@ public class LudumDare32 extends ApplicationAdapter {
 
 		sush.render(sl.getBatch());
 		sush.update();
+		
+		hud.render(sl.getBatch());
+		hud.update(Gdx.graphics.getDeltaTime());
 
 		
 	}
