@@ -1,0 +1,8 @@
+package com.mygdx.game;
+
+import com.badlogic.gdx.graphics.Texture;
+
+public class HUD {
+	Texture tex;
+	Sushi hudSush;
+}

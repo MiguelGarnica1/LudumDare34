@@ -5,9 +5,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.mygdx.entity.Cat;
 import com.mygdx.entity.Sushi;
 import com.mygdx.handler.HUD;
 import com.uwsoft.editor.renderer.SceneLoader;
+import com.uwsoft.editor.renderer.utils.ItemWrapper;
 
 public class LudumDare32 extends ApplicationAdapter {
 	private SceneLoader sl;
@@ -15,6 +17,8 @@ public class LudumDare32 extends ApplicationAdapter {
 	private Sushi sush;
 	private HUD hud;
 	
+	private ItemWrapper root;
+	private Cat cat;
 	@Override
 	public void create () {
 		sl = new SceneLoader();
@@ -22,6 +26,10 @@ public class LudumDare32 extends ApplicationAdapter {
 		vp = new FitViewport(800,600);
 
 		sl.loadScene("MainScene", vp);
+		root = new ItemWrapper(sl.getRoot());
+		cat = new Cat();
+		root.getChild("player").addScript(cat);
+		
 		sush = new Sushi(2);
 		
 		hud = new HUD();

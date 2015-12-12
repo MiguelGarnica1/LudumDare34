@@ -31,7 +31,7 @@ public class HUD {
 	}
 
 	public void render(Batch batch) {
-		hudSush.setPosition(position);
+		hudSush.setPosition(position.x, position.y);
 		hudSush.render(batch);
 	}
 

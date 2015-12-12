@@ -18,47 +18,73 @@ public class Sushi {
 	private int id;
 	private Random randSushi;
 	private Vector2 position;
-	private float speed = 150;
+	private float speed = 2;
 	private float width = 100;
+	private Vector2[] points;
 
+	
 	public Sushi(int identifier) {
 		id = identifier;
 		tex = new Texture("sushi.png");
 		sushis = new TextureRegion[4];
+		points = new Vector2[4];
 		randSushi = new Random();
-		position = new Vector2(100,100);
+		position = new Vector2(100, 240);
 		init();
 	}
 
 	public void init() {
-		sushis[0] = new TextureRegion(tex, 0,0,32,32);
-		sushis[1] = new TextureRegion(tex, 32,0,32,32);
-		sushis[2] = new TextureRegion(tex, 0,32,32,32);
-		sushis[3] =  new TextureRegion(tex, 32,32,32,32);
+		sushis[0] = new TextureRegion(tex, 0, 0, 32, 32);
+		sushis[1] = new TextureRegion(tex, 32, 0, 32, 32);
+		sushis[2] = new TextureRegion(tex, 0, 32, 32, 32);
+		sushis[3] = new TextureRegion(tex, 32, 32, 32, 32);
+
+		points[0] = new Vector2(100, 42);
+		points[1] = new Vector2(100, 240);
+		points[2] = new Vector2(714, 240);
+		points[3] = new Vector2(714, 42);
 		setSushiTexure();
-		
+
 	}
 
-	
-	public void update(){
-		if(Gdx.input.isKeyJustPressed(Keys.SPACE)){
+	public void update() {
+		if (Gdx.input.isKeyJustPressed(Keys.SPACE)) {
 			id = generateRandomSushi(4);
 			setSushiTexure();
 		}
-		
+		move();
+		isInPosition(370, 425, 240);
+
 	}
-	
-	public void render(Batch batch){
+
+	public void move() {
+
+		if (getPosition().y < points[1].y && getPosition().x == points[1].x) {
+			setPosition(getPosition().x, getPosition().y + getSpeed());
+		}
+		if (getPosition().x < points[2].x && getPosition().y == points[2].y) {
+			setPosition(getPosition().x + getSpeed(), getPosition().y);
+		}
+		if (getPosition().y > points[3].y && getPosition().x == points[3].x) {
+			setPosition(getPosition().x, getPosition().y - getSpeed());
+		}
+		if (getPosition().x > points[0].x && getPosition().y == points[0].y) {
+			setPosition(getPosition().x - getSpeed(), getPosition().y);
+		}
+
+	}
+
+	public void render(Batch batch) {
 		batch.begin();
-		batch.draw(reg, position.x, position.y, width/2, width/2, width, width, 1, 1, 0);
+		batch.draw(reg, position.x, position.y, width / 2, width / 2, width, width, 1, 1, 0);
 		batch.end();
 	}
-	
-	public int generateRandomSushi(int bound){
-		return randSushi.nextInt(bound)+ 1;
+
+	public int generateRandomSushi(int bound) {
+		return randSushi.nextInt(bound) + 1;
 	}
-	
-	public void setSushiTexure(){
+
+	public void setSushiTexure() {
 		if (id == 1) {
 			reg = sushis[0];
 		}
@@ -72,8 +98,19 @@ public class Sushi {
 			reg = sushis[3];
 		}
 	}
-	
-	public void dispose(){
+
+	public boolean isInPosition(float xleft, float xright, float y) {
+		if (getPosition().x > xleft && getPosition().x < xright) {
+			if (getPosition().y == y) {
+				System.out.println("EAT ME!");
+				return true;
+			}
+		}
+		return false;
+
+	}
+
+	public void dispose() {
 		getTex().dispose();
 	}
 
@@ -81,8 +118,9 @@ public class Sushi {
 		return position;
 	}
 
-	public void setPosition(Vector2 position) {
-		this.position = position;
+	public void setPosition(float x, float y) {
+		position.x = x;
+		position.y = y;
 	}
 
 	public Texture getTex() {
@@ -100,11 +138,9 @@ public class Sushi {
 	public int getId() {
 		return id;
 	}
-	
-	public void setId(int id){
+
+	public void setId(int id) {
 		this.id = id;
 	}
-	
-	
-	
+
 }
