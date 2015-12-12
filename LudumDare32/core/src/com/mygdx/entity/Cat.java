@@ -12,76 +12,105 @@ import com.uwsoft.editor.renderer.components.sprite.SpriteAnimationStateComponen
 import com.uwsoft.editor.renderer.scripts.IScript;
 import com.uwsoft.editor.renderer.utils.ComponentRetriever;
 
-public class Cat implements IScript{
+public class Cat implements IScript {
+	private enum CatAnimation {
+		stand, eat
+	}
+
+	CatAnimation catAnimation;
+	CatAnimation previousAnimation;
+	
 	private Entity player;
 	private Vector2 position;
 	private Vector2 velocity;
-	
-	private TransformComponent transformComponent ;
+
+	private TransformComponent transformComponent;
 	private DimensionsComponent dimensionsComponent;
 	private SpriteAnimationComponent spriter;
 	private SpriteAnimationStateComponent spriterState;
-	
+
 	public static int sushiEaten = 0;
-	public Cat(){
-		
+
+	public Cat() {
+		catAnimation = CatAnimation.stand;
 	}
-	
+
 	@Override
-	public void init(Entity entity){
+	public void init(Entity entity) {
 		player = entity;
 
-		// entity position(x,y,scale,rotation,etc.) data is kept in the TransformComponent
-		// entity dimensions(width,height,boundbox,polygon) data is held in DimensionsComponent
+		// entity position(x,y,scale,rotation,etc.) data is kept in the
+		// TransformComponent
+		// entity dimensions(width,height,boundbox,polygon) data is held in
+		// DimensionsComponent
 		// box2d physicsBody is kept in physicsBodyComponent
 		// ComponentRetriever is the fastest way to retrieve components
 		transformComponent = ComponentRetriever.get(entity, TransformComponent.class);
 		dimensionsComponent = ComponentRetriever.get(entity, DimensionsComponent.class);
-		
+
 		spriter = ComponentRetriever.get(entity, SpriteAnimationComponent.class);
 		spriterState = ComponentRetriever.get(entity, SpriteAnimationStateComponent.class);
-		
-		 
 
-		
 		System.out.println(spriter.currentAnimation);
-		
+
 		velocity = new Vector2(.5f, .5f);
 		position = new Vector2(getX(), getY());
 	}
-	
+
+	float elapsedTime = 0;
+
 	@Override
 	public void act(float delta) {
 		position = new Vector2(getX(), getY());
-		if(Gdx.input.isKeyJustPressed(Keys.SPACE)){
-			transformComponent.scaleX +=0.1f;
-			transformComponent.scaleY +=0.1f;
+		//If space is press, size increase, and change animationState to eat
+		if (Gdx.input.isKeyJustPressed(Keys.SPACE)) {
+			transformComponent.scaleX += 0.1f;
+			transformComponent.scaleY += 0.1f;
 			transformComponent.y += 0.1f;
-			spriterState.set(spriter.frameRangeMap.get("eat"), 10, Animation.PlayMode.LOOP);
+			catAnimation = CatAnimation.eat;
 		}
+		
+		if (catAnimation == CatAnimation.eat && previousAnimation == CatAnimation.stand) {
+			spriterState.set(spriter.frameRangeMap.get("eat"), 5, Animation.PlayMode.NORMAL);
+		}
+		
+		if(catAnimation == CatAnimation.eat){
+			elapsedTime += delta;
+		}
+		
+		if (spriterState.get().isAnimationFinished(elapsedTime)) {
+			elapsedTime = 0;
+			spriterState.set(spriter.frameRangeMap.get("stand"), 10, Animation.PlayMode.LOOP);
+			catAnimation = CatAnimation.stand;
+		}
+		
+		System.out.println("now: "+ catAnimation);
+		System.out.println("previous: "+ previousAnimation);
+		System.out.println("time: "+ elapsedTime);
+		previousAnimation = catAnimation;
 	}
-	
-	public void translate(Vector2 target){
+
+	public void translate(Vector2 target) {
 
 	}
-	
-	public Vector2 getPosition(){
+
+	public Vector2 getPosition() {
 		return position;
 	}
-	
-	public float getX(){
+
+	public float getX() {
 		return transformComponent.x;
 	}
-	
-	public float getY(){
+
+	public float getY() {
 		return transformComponent.y;
 	}
-	
-	public float getWidth(){
+
+	public float getWidth() {
 		return dimensionsComponent.width;
 	}
-	
-	public float getHeight(){
+
+	public float getHeight() {
 		return dimensionsComponent.height;
 	}
 
@@ -90,7 +119,5 @@ public class Cat implements IScript{
 		// TODO Auto-generated method stub
 
 	}
-
-
 
 }
