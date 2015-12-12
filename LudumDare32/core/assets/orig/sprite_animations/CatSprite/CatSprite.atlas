@@ -1,0 +1,27 @@
+
+CatSprite.png
+size: 128,128
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+CatSprite01
+  rotate: false
+  xy: 2, 64
+  size: 60, 60
+  orig: 60, 60
+  offset: 0, 0
+  index: -1
+CatSprite02
+  rotate: false
+  xy: 2, 2
+  size: 60, 60
+  orig: 60, 60
+  offset: 0, 0
+  index: -1
+CatSprite03
+  rotate: false
+  xy: 64, 64
+  size: 60, 60
+  orig: 60, 60
+  offset: 0, 0
+  index: -1
