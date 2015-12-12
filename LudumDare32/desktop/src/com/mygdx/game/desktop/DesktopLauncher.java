@@ -8,8 +8,8 @@ public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		
-		config.width = 1024;
-		config.height = 576;
+		config.width = 720;
+		config.height = 480;
 		config.resizable = false;
 		
 		new LwjglApplication(new LudumDare32(), config);
