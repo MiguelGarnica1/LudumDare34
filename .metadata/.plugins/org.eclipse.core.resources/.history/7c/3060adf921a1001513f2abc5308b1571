@@ -1,0 +1,86 @@
+package com.mygdx.levelManager;
+
+import java.util.ArrayList;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
+import com.mygdx.entity.Cat;
+import com.mygdx.entity.Sushi;
+import com.mygdx.handler.HUD;
+import com.uwsoft.editor.renderer.SceneLoader;
+import com.uwsoft.editor.renderer.utils.ItemWrapper;
+
+public class LevelManager {
+	public enum LevelProgress{
+		level0, level1, level2, level3, level4, level5, level6
+	}
+	private SceneLoader sl;
+	private Viewport vp;
+	private HUD hud;
+	private ItemWrapper root;
+	
+
+	private float speed;
+	private float rate; 
+	private int[] maxSushi;
+	private ArrayList<Sushi> sushis;
+	
+	private float timeElap;
+	
+	private LevelProgress currentLevel;
+	
+	private Cat player;
+	
+	public LevelManager(){
+		sl = new SceneLoader();
+
+		vp = new FitViewport(800,600);
+		
+		currentLevel = LevelProgress.level1;
+		maxSushi = new int[7];
+		setMaxSushiValue(maxSushi);
+		sushis = new ArrayList<Sushi>();
+		
+		
+	}
+	
+	private void setMaxSushiValue(int[] arr){
+		for(int i = 0 ; i < arr.length; i++){
+			arr[i] = i * 2;
+		}
+	}
+	
+	public void createSushi(int lvl){
+		if(timeElap>3f){
+			if(sushis.size()< maxSushi[lvl]){
+				sushis.add(new Sushi(1));
+			}
+			timeElap=0;
+		}
+		
+	}
+	
+	public void update(){
+		timeElap+=Gdx.graphics.getDeltaTime();
+		createSushi(1);
+		for(Sushi sush : sushis){
+			sush.update();
+		}
+	}
+	
+	public void render(Batch batch){
+		for(Sushi sush : sushis){
+			sush.render(batch);
+		}
+	}
+	
+	public void levelAdvance(){
+		
+	}
+	
+	public void dispose(){
+		
+	}
+}

@@ -11,7 +11,7 @@ public class HUD {
 	private float timeElap;
 	public static final float TIME = 2f;
 	public HUD() {
-		hudSush = new Sushi(1);
+		hudSush = new Sushi();
 		position = new Vector2(50, 350);
 	}
 

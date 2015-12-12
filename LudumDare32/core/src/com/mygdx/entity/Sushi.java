@@ -23,8 +23,8 @@ public class Sushi {
 	private Vector2[] points;
 
 	
-	public Sushi(int identifier) {
-		id = identifier;
+	public Sushi() {
+	
 		tex = new Texture("sushi.png");
 		sushis = new TextureRegion[4];
 		points = new Vector2[4];
@@ -48,10 +48,7 @@ public class Sushi {
 	}
 
 	public void update() {
-		if (Gdx.input.isKeyJustPressed(Keys.SPACE)) {
-			id = generateRandomSushi(4);
-			setSushiTexure();
-		}
+
 		move();
 		isInPosition(370, 425, 240);
 
@@ -85,6 +82,7 @@ public class Sushi {
 	}
 
 	public void setSushiTexure() {
+		id = generateRandomSushi(4);
 		if (id == 1) {
 			reg = sushis[0];
 		}

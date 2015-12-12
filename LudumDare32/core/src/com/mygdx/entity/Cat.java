@@ -23,8 +23,9 @@ public class Cat implements IScript{
 	private SpriteAnimationStateComponent spriterState;
 	
 	public static int sushiEaten = 0;
+	private int health;
 	public Cat(){
-		
+		health = 3;
 	}
 	
 	@Override
