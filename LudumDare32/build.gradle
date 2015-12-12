@@ -13,7 +13,7 @@ allprojects {
 
     version = '1.0'
     ext {
-        appName = "LudumDare34"
+        appName = "LudumDare32"
         gdxVersion = '1.7.0'
         roboVMVersion = '1.8.0'
         box2DLightsVersion = '1.4'
@@ -51,7 +51,7 @@ project(":core") {
         compile "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
         compile "com.badlogicgames.ashley:ashley:$ashleyVersion"
         compile "com.badlogicgames.box2dlights:box2dlights:$box2DLightsVersion"
-        compile "com.underwaterapps.overlap2druntime:overlap2d-runtime-libgdx:0.1.0"
+        compile "com.underwaterapps.overlap2druntime:overlap2d-runtime-libgdx:0.1.2-SNAPSHOT"
     }
 }
 
