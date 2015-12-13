@@ -5,6 +5,7 @@ import java.util.Random;
 import com.badlogic.ashley.core.Component;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 
@@ -22,6 +23,7 @@ public class Sushi implements Component {
 
 	private float timeElapsed;
 
+	BitmapFont font = new BitmapFont();
 	public float getTimeElapsed() {
 		return timeElapsed;
 	}
@@ -60,8 +62,8 @@ public class Sushi implements Component {
 	public void update(float dt) {
 		timeElapsed += dt;
 		move();
-		isInPosition(370, 425, 240);
-
+		//isInRangeX(370, 425, 240);
+		isInRangeY(230, 170, 100 - 20);
 	}
 
 	public void move() {
@@ -84,6 +86,7 @@ public class Sushi implements Component {
 	public void render(Batch batch) {
 		batch.begin();
 		batch.draw(reg, position.x, position.y, dimension.x / 2, dimension.y / 2, dimension.x, dimension.y, 1, 1, 0);
+		font.draw(batch, getPosition().toString(), getPosition().x, getPosition().y);
 		batch.end();
 	}
 
@@ -107,7 +110,7 @@ public class Sushi implements Component {
 		}
 	}
 
-	public boolean isInPosition(float xleft, float xright, float y) {
+	public boolean isInRangeX(float xleft, float xright, float y) {
 		if (getPosition().x > xleft && getPosition().x + dimension.x < xright) {
 			if (getPosition().y == y) {
 				// System.out.println("EAT ME!");
@@ -118,6 +121,16 @@ public class Sushi implements Component {
 
 	}
 
+	public boolean isInRangeY(float ytop, float ydown, float x){
+		if(getPosition().y > ydown && getPosition().y + dimension.y < ytop){
+			if(getPosition().x == x){
+				System.out.println("REMOVE!!!");
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	public void dispose() {
 		getTex().dispose();
 	}

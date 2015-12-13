@@ -10,7 +10,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.entity.Cat;
 import com.mygdx.entity.Sushi;
-import com.mygdx.handler.HUD;
+import com.mygdx.hud.HUD;
 import com.uwsoft.editor.renderer.SceneLoader;
 import com.uwsoft.editor.renderer.utils.ItemWrapper;
 
@@ -32,10 +32,16 @@ public class LevelManager {
 	
 	private ArrayList<Sushi> sushis;
 
+	public ArrayList<Sushi> getSushis() {
+		return sushis;
+	}
+
 	private float timeElap;
 
-	private int currentLevel;
+	private int currentLevel = 0;
 	
+
+
 	public LevelManager(SceneLoader sceneLoader) {
 		sl = sceneLoader;
 		vp = new FitViewport(800, 600);
@@ -66,6 +72,10 @@ public class LevelManager {
 		}
 	}
 
+	public Cat getCat() {
+		return cat;
+	}
+
 	public void setTime(float[] arr) {
 		float timet = 3f;
 		for (int i = 1; i < arr.length; i++) {
@@ -73,6 +83,15 @@ public class LevelManager {
 		}
 	}
 
+
+	public float[] getTime() {
+		return time;
+	}
+	public int getCurrentLevel() {
+		return currentLevel;
+	}
+
+	
 	public void createSushi(int lvl) {
 		if (timeElap > time[lvl]) {
 			if (sushis.size() < 75) {
@@ -81,6 +100,7 @@ public class LevelManager {
 					if (s.getPosition().y == 240 - hud.getSushi().getDimension().y / 2) {
 						if (s.getPosition().x > pos.x + s.getDimension().x) {
 							sushis.add(new Sushi());
+							
 							break;
 						}
 					}
@@ -89,7 +109,7 @@ public class LevelManager {
 				if (sushis.isEmpty()) {
 					sushis.add(new Sushi());
 				}
-
+				//hud.flickerRight(Gdx.graphics.getDeltaTime());
 			}
 			timeElap = 0;
 		}
@@ -102,6 +122,7 @@ public class LevelManager {
 			
 			if(cat.getSushiEaten() == maxSushi[currentLevel]){
 				cat.setSushiEaten(0);
+				cat.setHealth(3);
 				currentLevel++;
 				System.out.println("Level up to: " + currentLevel);
 				sushis.removeAll(sushis);
@@ -109,7 +130,7 @@ public class LevelManager {
 			createSushi(currentLevel);
 			for (int i = 0; i < sushis.size(); i++) {
 				sushis.get(i).update(dt);
-				if (sushis.get(i).isInPosition(370, 425, 240 - hud.getSushi().getDimension().y / 2)
+				if (sushis.get(i).isInRangeX(370, 425, 240 - hud.getSushi().getDimension().y / 2)
 						&& Gdx.input.isKeyJustPressed(Keys.SPACE)) {
 					if (hud.getSushi().getId() == sushis.get(i).getId()) {
 						cat.getFat();
@@ -120,6 +141,8 @@ public class LevelManager {
 						cat.setHealth(cat.getHealth() - 1);
 						System.out.println("wrong one u fool");
 					}
+				}else if(sushis.get(i).isInRangeY(224, 174, 80)){
+					sushis.remove(i);
 				}
 				
 				if(sushis.get(i).getTimeElapsed() >= 16.5){
