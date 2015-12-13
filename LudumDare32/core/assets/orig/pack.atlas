@@ -6,15 +6,22 @@ filter: Linear,Linear
 repeat: none
 background1 (2)
   rotate: false
-  xy: 1028, 194
+  xy: 1028, 316
   size: 1024, 576
   orig: 1024, 576
   offset: 0, 0
   index: -1
 background4-3
   rotate: false
-  xy: 2, 2
+  xy: 2, 124
   size: 1024, 768
   orig: 1024, 768
+  offset: 0, 0
+  index: -1
+sushi
+  rotate: false
+  xy: 2, 2
+  size: 120, 120
+  orig: 120, 120
   offset: 0, 0
   index: -1

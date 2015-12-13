@@ -2,12 +2,13 @@ package com.mygdx.entity;
 
 import java.util.Random;
 
+import com.badlogic.ashley.core.Component;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 
-public class Sushi {
+public class Sushi implements Component{
 
 	private Texture tex;
 	private TextureRegion[] sushis;
@@ -16,7 +17,7 @@ public class Sushi {
 	private Random randSushi;
 	private Vector2 position;
 	private float speed = 2;
-	private float width = 100;
+	private float width = 40;
 	private Vector2[] points;
 
 	
@@ -28,28 +29,27 @@ public class Sushi {
 		sushis = new TextureRegion[4];
 		points = new Vector2[4];
 		randSushi = new Random();
-		position = new Vector2(100, 240);
 		dimension = new Vector2(width,width);
+		position = new Vector2(100 - width/2, 240 - width/2);
 		init();
 	}
 
 	public void init() {
-		sushis[0] = new TextureRegion(tex, 0, 0, 32, 32);
-		sushis[1] = new TextureRegion(tex, 32, 0, 32, 32);
-		sushis[2] = new TextureRegion(tex, 0, 32, 32, 32);
-		sushis[3] = new TextureRegion(tex, 32, 32, 32, 32);
+		sushis[0] = new TextureRegion(tex, 0, 0, 60, 60);
+		sushis[1] = new TextureRegion(tex, 60, 0, 60, 60);
+		sushis[2] = new TextureRegion(tex, 0, 60, 60, 60);
+		sushis[3] = new TextureRegion(tex, 60, 60, 60, 60);
 
-		points[0] = new Vector2(100, 42);
-		points[1] = new Vector2(100, 240);
-		points[2] = new Vector2(714, 240);
-		points[3] = new Vector2(714, 42);
-		setSushiTexure();
+		points[0] = new Vector2(100 - width/2, 42 - width/2);
+		points[1] = new Vector2(100 - width/2 , 240 - width/2);
+		points[2] = new Vector2(714 - width/2 , 240 - width/2);
+		points[3] = new Vector2(714 - width/2, 42 - width/2);
+		setSushiTexure(generateRandomSushi(4));
 		
 		
 	}
 
 	public void update() {
-
 		move();
 		isInPosition(370, 425, 240);
 
@@ -82,8 +82,8 @@ public class Sushi {
 		return randSushi.nextInt(bound) + 1;
 	}
 
-	public void setSushiTexure() {
-		id = generateRandomSushi(4);
+	public void setSushiTexure(int id) {
+		this.id = id;
 		if (id == 1) {
 			reg = sushis[0];
 		}
@@ -99,7 +99,7 @@ public class Sushi {
 	}
 
 	public boolean isInPosition(float xleft, float xright, float y) {
-		if (getPosition().x > xleft && getPosition().x < xright) {
+		if (getPosition().x > xleft && getPosition().x + dimension.x < xright) {
 			if (getPosition().y == y) {
 				System.out.println("EAT ME!");
 				return true;

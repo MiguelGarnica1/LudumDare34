@@ -18,12 +18,7 @@ public class HUD {
 	public void update(float delta) {
 		timeElap += delta;
 		if (timeElap > TIME) {
-			if (hudSush.getId() < 4) {
-				hudSush.setId(hudSush.generateRandomSushi(4));
-			} else {
-				hudSush.setId(1);
-			}
-			hudSush.setSushiTexure();
+			hudSush.setSushiTexure(hudSush.generateRandomSushi(4));
 			timeElap = 0;
 		}
 		
@@ -39,4 +34,7 @@ public class HUD {
 		return hudSush;
 	}
 
+	public void dispose(){
+		hudSush.dispose();
+	}
 }

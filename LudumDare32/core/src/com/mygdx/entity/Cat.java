@@ -29,7 +29,15 @@ public class Cat implements IScript {
 	private SpriteAnimationComponent spriter;
 	private SpriteAnimationStateComponent spriterState;
 
-	public static int sushiEaten = 0;
+	private int sushiEaten;
+
+	public int getSushiEaten() {
+		return sushiEaten;
+	}
+
+	public void setSushiEaten(int sushiEaten) {
+		this.sushiEaten = sushiEaten;
+	}
 
 	private int health;
 	
