@@ -186,6 +186,10 @@ public class LevelManager {
 	public int[] getMaxSushi() {
 		return maxSushi;
 	}
+	
+	public ItemWrapper getRoot() {
+		return root;
+	}
 
 	public void setMaxSushi(int[] maxSushi) {
 		this.maxSushi = maxSushi;
