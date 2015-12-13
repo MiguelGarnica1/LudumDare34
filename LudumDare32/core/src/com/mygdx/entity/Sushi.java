@@ -2,11 +2,8 @@ package com.mygdx.entity;
 
 import java.util.Random;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 
@@ -23,13 +20,16 @@ public class Sushi {
 	private Vector2[] points;
 
 	
-	public Sushi(int identifier) {
-		id = identifier;
+	private Vector2 dimension;
+	
+	public Sushi() {
+	
 		tex = new Texture("sushi.png");
 		sushis = new TextureRegion[4];
 		points = new Vector2[4];
 		randSushi = new Random();
 		position = new Vector2(100, 240);
+		dimension = new Vector2(width,width);
 		init();
 	}
 
@@ -44,14 +44,12 @@ public class Sushi {
 		points[2] = new Vector2(714, 240);
 		points[3] = new Vector2(714, 42);
 		setSushiTexure();
-
+		
+		
 	}
 
 	public void update() {
-		if (Gdx.input.isKeyJustPressed(Keys.SPACE)) {
-			id = generateRandomSushi(4);
-			setSushiTexure();
-		}
+
 		move();
 		isInPosition(370, 425, 240);
 
@@ -76,7 +74,7 @@ public class Sushi {
 
 	public void render(Batch batch) {
 		batch.begin();
-		batch.draw(reg, position.x, position.y, width / 2, width / 2, width, width, 1, 1, 0);
+		batch.draw(reg, position.x, position.y, dimension.x / 2, dimension.y / 2, dimension.x, dimension.y, 1, 1, 0);
 		batch.end();
 	}
 
@@ -85,6 +83,7 @@ public class Sushi {
 	}
 
 	public void setSushiTexure() {
+		id = generateRandomSushi(4);
 		if (id == 1) {
 			reg = sushis[0];
 		}
@@ -123,6 +122,14 @@ public class Sushi {
 		position.y = y;
 	}
 
+	public Vector2 getDimension() {
+		return dimension;
+	}
+
+	public void setDimension(Vector2 dimension) {
+		this.dimension = dimension;
+	}
+	
 	public Texture getTex() {
 		return tex;
 	}

@@ -31,7 +31,9 @@ public class Cat implements IScript {
 
 	public static int sushiEaten = 0;
 
-	public Cat() {
+	private int health;
+	public Cat(){
+		health = 3;
 		catAnimation = CatAnimation.stand;
 	}
 
@@ -64,9 +66,6 @@ public class Cat implements IScript {
 		position = new Vector2(getX(), getY());
 		//If space is press, size increase, and change animationState to eat
 		if (Gdx.input.isKeyJustPressed(Keys.SPACE)) {
-			transformComponent.scaleX += 0.1f;
-			transformComponent.scaleY += 0.1f;
-			transformComponent.y += 0.1f;
 			catAnimation = CatAnimation.eat;
 		}
 		
@@ -90,6 +89,11 @@ public class Cat implements IScript {
 		previousAnimation = catAnimation;
 	}
 
+	public void getFat(){
+		transformComponent.scaleX += 0.5f;
+		transformComponent.scaleY += 0.5f;
+		transformComponent.y += 1f;
+	}
 	public void translate(Vector2 target) {
 
 	}
