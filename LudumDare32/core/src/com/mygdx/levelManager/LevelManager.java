@@ -73,6 +73,9 @@ public class LevelManager {
 						}
 					}
 				}
+				if(sushis.isEmpty()){
+					sushis.add(new Sushi());
+				}
 				
 			}
 			timeElap=0;
@@ -90,9 +93,14 @@ public class LevelManager {
 					cat.getFat();
 					sushis.remove(i);
 				}else{
-					
+					sushis.remove(i);
+					cat.setHealth(cat.getHealth() - 1);
 				}
 			}
+		}
+		
+		if(cat.getHealth() <= 0){
+			sl.loadScene("DeathScene", vp);
 		}
 		
 	}

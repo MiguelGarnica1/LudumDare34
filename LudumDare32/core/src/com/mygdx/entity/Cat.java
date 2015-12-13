@@ -32,6 +32,15 @@ public class Cat implements IScript {
 	public static int sushiEaten = 0;
 
 	private int health;
+	
+	public int getHealth() {
+		return health;
+	}
+
+	public void setHealth(int health) {
+		this.health = health;
+	}
+
 	public Cat(){
 		health = 3;
 		catAnimation = CatAnimation.stand;
