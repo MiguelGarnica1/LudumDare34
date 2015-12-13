@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 
-public class Sushi implements Component{
+public class Sushi implements Component {
 
 	private Texture tex;
 	private TextureRegion[] sushis;
@@ -20,17 +20,26 @@ public class Sushi implements Component{
 	private float width = 40;
 	private Vector2[] points;
 
-	
+	private float timeElapsed;
+
+	public float getTimeElapsed() {
+		return timeElapsed;
+	}
+
+	public Vector2[] getPoints() {
+		return points;
+	}
+
 	private Vector2 dimension;
-	
+
 	public Sushi() {
-	
+
 		tex = new Texture("sushi.png");
 		sushis = new TextureRegion[4];
 		points = new Vector2[4];
 		randSushi = new Random();
-		dimension = new Vector2(width,width);
-		position = new Vector2(100 - width/2, 240 - width/2);
+		dimension = new Vector2(width, width);
+		position = new Vector2(100 - width / 2, 240 - width / 2);
 		init();
 	}
 
@@ -40,16 +49,16 @@ public class Sushi implements Component{
 		sushis[2] = new TextureRegion(tex, 0, 60, 60, 60);
 		sushis[3] = new TextureRegion(tex, 60, 60, 60, 60);
 
-		points[0] = new Vector2(100 - width/2, 42 - width/2);
-		points[1] = new Vector2(100 - width/2 , 240 - width/2);
-		points[2] = new Vector2(714 - width/2 , 240 - width/2);
-		points[3] = new Vector2(714 - width/2, 42 - width/2);
+		points[0] = new Vector2(100 - width / 2, 42 - width / 2);
+		points[1] = new Vector2(100 - width / 2, 240 - width / 2);
+		points[2] = new Vector2(714 - width / 2, 240 - width / 2);
+		points[3] = new Vector2(714 - width / 2, 42 - width / 2);
 		setSushiTexure(generateRandomSushi(4));
-		
-		
+
 	}
 
-	public void update() {
+	public void update(float dt) {
+		timeElapsed += dt;
 		move();
 		isInPosition(370, 425, 240);
 
@@ -101,7 +110,7 @@ public class Sushi implements Component{
 	public boolean isInPosition(float xleft, float xright, float y) {
 		if (getPosition().x > xleft && getPosition().x + dimension.x < xright) {
 			if (getPosition().y == y) {
-				System.out.println("EAT ME!");
+				// System.out.println("EAT ME!");
 				return true;
 			}
 		}
@@ -129,7 +138,7 @@ public class Sushi implements Component{
 	public void setDimension(Vector2 dimension) {
 		this.dimension = dimension;
 	}
-	
+
 	public Texture getTex() {
 		return tex;
 	}

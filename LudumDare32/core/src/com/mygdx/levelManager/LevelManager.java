@@ -29,28 +29,29 @@ public class LevelManager {
 
 	private float[] time;
 	private int[] maxSushi;
+	
 	private ArrayList<Sushi> sushis;
 
 	private float timeElap;
 
-	private LevelProgress currentLevel;
-
+	private int currentLevel;
+	
 	public LevelManager(SceneLoader sceneLoader) {
 		sl = sceneLoader;
 		vp = new FitViewport(800, 600);
-		sl.loadScene("MainScene", vp);
 
 		root = new ItemWrapper(sl.getRoot());
 		cat = new Cat();
 		root.getChild("player").addScript(cat);
 
-		hud = new HUD();
+		hud = new HUD(cat, this);
 
-		currentLevel = LevelProgress.level1;
-		maxSushi = new int[7];
+		
+		maxSushi = new int[6];
+		maxSushi[0] = 0;
 		setMaxSushiValue(maxSushi);
 
-		time = new float[7];
+		time = new float[6];
 		time[0] = 0f;
 		setTime(time);
 
@@ -59,8 +60,9 @@ public class LevelManager {
 	}
 
 	private void setMaxSushiValue(int[] arr) {
-		for (int i = 0; i < arr.length; i++) {
-			arr[i] = i * 5;
+		int num = 5;
+		for (int i = 1; i < arr.length; i++) {
+			arr[i] = num + i*2;
 		}
 	}
 
@@ -83,6 +85,7 @@ public class LevelManager {
 						}
 					}
 				}
+				
 				if (sushis.isEmpty()) {
 					sushis.add(new Sushi());
 				}
@@ -93,22 +96,34 @@ public class LevelManager {
 
 	}
 
-	public void update() {
+	public void update(float dt) {
 		//if (cat.getHealth() > 0) {
 			timeElap += Gdx.graphics.getDeltaTime();
-
-			createSushi(2);
+			
+			if(cat.getSushiEaten() == maxSushi[currentLevel]){
+				cat.setSushiEaten(0);
+				currentLevel++;
+				System.out.println("Level up to: " + currentLevel);
+				sushis.removeAll(sushis);
+			}
+			createSushi(currentLevel);
 			for (int i = 0; i < sushis.size(); i++) {
-				sushis.get(i).update();
+				sushis.get(i).update(dt);
 				if (sushis.get(i).isInPosition(370, 425, 240 - hud.getSushi().getDimension().y / 2)
 						&& Gdx.input.isKeyJustPressed(Keys.SPACE)) {
 					if (hud.getSushi().getId() == sushis.get(i).getId()) {
 						cat.getFat();
+						cat.setSushiEaten(cat.getSushiEaten() + 1);
 						sushis.remove(i);
 					} else {
 						sushis.remove(i);
 						cat.setHealth(cat.getHealth() - 1);
+						System.out.println("wrong one u fool");
 					}
+				}
+				
+				if(sushis.get(i).getTimeElapsed() >= 16.5){
+					sushis.remove(i);
 				}
 			}
 	//	}
@@ -127,11 +142,11 @@ public class LevelManager {
 	public void render() {
 
 		//if (cat.getHealth() > 0) {
-			hud.render(sl.getBatch());
-			hud.update(Gdx.graphics.getDeltaTime());
 			for (Sushi sush : sushis) {
 				sush.render(sl.getBatch());
 			}
+			hud.render(sl.getBatch());
+			hud.update(Gdx.graphics.getDeltaTime());
 		//}
 	}
 
@@ -141,5 +156,13 @@ public class LevelManager {
 
 	public void dispose() {
 
+	}
+	
+	public int[] getMaxSushi() {
+		return maxSushi;
+	}
+
+	public void setMaxSushi(int[] maxSushi) {
+		this.maxSushi = maxSushi;
 	}
 }

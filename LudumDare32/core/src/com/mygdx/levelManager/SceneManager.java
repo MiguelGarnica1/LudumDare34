@@ -6,23 +6,21 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.entity.Cat;
 import com.uwsoft.editor.renderer.SceneLoader;
-import com.uwsoft.editor.renderer.utils.ItemWrapper;
 
 public class SceneManager {
 	
 	private SceneLoader sl;
 	private Viewport vp;
-	private ItemWrapper root;
+
 	private LevelManager lvm;
 	
-	private Cat cat;
+	//private Cat cat;
 	private boolean isMainGameLoaded = false;
 	
 	public SceneManager(){
 		sl = new SceneLoader();
 		vp = new FitViewport(800, 600);
 		
-		lvm = new LevelManager(sl);
 		init();
 	}
 	
@@ -31,10 +29,7 @@ public class SceneManager {
 	}
 	
 	public void loadMainGame(){
-		root = new ItemWrapper(sl.getRoot());
-		cat = new Cat();
-		root.getChild("player").addScript(cat);
-		
+		lvm = new LevelManager(sl);	
 		isMainGameLoaded = true;
 	}
 	
@@ -44,7 +39,7 @@ public class SceneManager {
 		}
 		if(sl.getSceneVO().sceneName.equals("MainScene")&& !isMainGameLoaded) loadMainGame();
 		if(sl.getSceneVO().sceneName.equals("MainScene")){
-			lvm.update();
+			lvm.update(dt);
 		}
 	}
 	

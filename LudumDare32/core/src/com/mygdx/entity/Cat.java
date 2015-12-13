@@ -100,16 +100,17 @@ public class Cat implements IScript {
 			catAnimation = CatAnimation.stand;
 		}
 		
-		System.out.println("now: "+ catAnimation);
-		System.out.println("previous: "+ previousAnimation);
-		System.out.println("time: "+ elapsedTime);
+//		System.out.println("now: "+ catAnimation);
+//		System.out.println("previous: "+ previousAnimation);
+//		System.out.println("time: "+ elapsedTime);
 		previousAnimation = catAnimation;
 	}
 
 	public void getFat(){
 		transformComponent.scaleX += 0.5f;
 		transformComponent.scaleY += 0.5f;
-		transformComponent.y += 1f;
+		transformComponent.y += 5f;
+		System.out.println("get fat");
 	}
 	public void translate(Vector2 target) {
 
