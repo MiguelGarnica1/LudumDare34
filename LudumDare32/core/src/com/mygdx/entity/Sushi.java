@@ -17,7 +17,7 @@ public class Sushi implements Component {
 	private int id;
 	private Random randSushi;
 	private Vector2 position;
-	private float speed = 2;
+	private static float speed = 2;
 	private float width = 40;
 	private Vector2[] points;
 
@@ -86,7 +86,7 @@ public class Sushi implements Component {
 	public void render(Batch batch) {
 		batch.begin();
 		batch.draw(reg, position.x, position.y, dimension.x / 2, dimension.y / 2, dimension.x, dimension.y, 1, 1, 0);
-		font.draw(batch, getPosition().toString(), getPosition().x, getPosition().y);
+		//font.draw(batch, getPosition().toString(), getPosition().x, getPosition().y);
 		batch.end();
 	}
 

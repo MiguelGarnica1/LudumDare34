@@ -11,7 +11,6 @@ public class SceneManager {
 	
 	private SceneLoader sl;
 	private Viewport vp;
-
 	private LevelManager lvm;
 	
 	//private Cat cat;

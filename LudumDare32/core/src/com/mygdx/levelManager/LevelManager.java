@@ -121,11 +121,7 @@ public class LevelManager {
 			timeElap += Gdx.graphics.getDeltaTime();
 			
 			if(cat.getSushiEaten() == maxSushi[currentLevel]){
-				cat.setSushiEaten(0);
-				cat.setHealth(3);
-				currentLevel++;
-				System.out.println("Level up to: " + currentLevel);
-				sushis.removeAll(sushis);
+				levelAdvance();
 			}
 			createSushi(currentLevel);
 			for (int i = 0; i < sushis.size(); i++) {
@@ -138,6 +134,7 @@ public class LevelManager {
 						sushis.remove(i);
 					} else {
 						sushis.remove(i);
+						cat.setSushiEaten(cat.getSushiEaten() + 1);
 						cat.setHealth(cat.getHealth() - 1);
 						System.out.println("wrong one u fool");
 					}
@@ -174,7 +171,12 @@ public class LevelManager {
 	}
 
 	public void levelAdvance() {
-
+		cat.setSushiEaten(0);
+		cat.setHealth(3);
+		
+		currentLevel++;
+		System.out.println("Level up to: " + currentLevel);
+		sushis.removeAll(sushis);
 	}
 
 	public void dispose() {
