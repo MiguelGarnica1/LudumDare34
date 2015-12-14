@@ -19,6 +19,7 @@ public class IntroManager {
 	
 	private Texture bubble;
 	private BitmapFont font;
+	private BitmapFont next;
 	
 	private Music[] dialouge;
 	private Music mus;
@@ -43,7 +44,7 @@ public class IntroManager {
 				+ "\n*as he watches Cosmo flee*";
 		
 		font = new BitmapFont();
-		
+		next = new BitmapFont();
 		dialouge = new Music[5];
 		dialouge[0] = Gdx.audio.newMusic(Gdx.files.internal("SnowTestes1.mp3"));
 		dialouge[1] = Gdx.audio.newMusic(Gdx.files.internal("Cosmo Line 1.mp3"));
@@ -126,6 +127,7 @@ public class IntroManager {
 		batch.draw(currentT, 0,0, sm.getVp().getCamera().viewportWidth, sm.getVp().getCamera().viewportHeight);
 		batch.draw(bubble, 300, 10, 430, 100 );
 		font.draw(batch, quotes[currentQ], 330, 80);
+		next.draw(batch, "ENTER to go to next scene", 600, 580);
 		batch.end();
 	}
 	

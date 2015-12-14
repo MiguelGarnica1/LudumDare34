@@ -23,6 +23,8 @@ public class OuttroManager {
 	private BitmapFont font;
 
 	private Music mus;
+
+	private BitmapFont next;
 	public OuttroManager(SceneManager sm) {
 		this.sm = sm;
 
@@ -53,6 +55,7 @@ public class OuttroManager {
 		mus = Gdx.audio.newMusic(Gdx.files.internal("musicOutro.mp3"));
 		mus.setLooping(false);
 		font = new BitmapFont();
+		next = new BitmapFont();    
 		
 		mus.play();
 		bubble = new Texture("Speech Rectangle.png");
@@ -110,6 +113,7 @@ public class OuttroManager {
 		if (currentQ < 3) {
 			batch.draw(bubble, 300, 50, 400, 50);
 			font.draw(batch, quotes[currentQ], 350, 80);
+			next.draw(batch, "ENTER to go to next scene", 600, 580);  
 		}
 		batch.end();
 	}

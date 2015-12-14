@@ -27,7 +27,7 @@ public class LevelManager {
 	private ItemWrapper root;
 	private Cat cat;
 
-	BitmapFont font;
+	private BitmapFont font;
 
 	private float[] time;
 	private int[] maxSushi;
@@ -53,8 +53,7 @@ public class LevelManager {
 		root.getChild("player").addScript(cat);
 
 		hud = new HUD(cat, this);
-
-		
+		font = new BitmapFont();
 		maxSushi = new int[7];
 		maxSushi[0] = 0;
 		setMaxSushiValue(maxSushi);
@@ -174,6 +173,7 @@ public class LevelManager {
 	//	}
 
 		if (cat.getHealth() <= 0) {
+			mus.stop();
 			sl.loadScene("DeathScene", vp);
 		}
 		if(currentLevel == 6){
@@ -196,6 +196,9 @@ public class LevelManager {
 			}
 			hud.render(sl.getBatch());
 			hud.update(Gdx.graphics.getDeltaTime());
+			sl.getBatch().begin();
+			font.draw(sl.getBatch(), "Level "+currentLevel, 380, 100);
+			sl.getBatch().end();
 		//}
 	}
 
