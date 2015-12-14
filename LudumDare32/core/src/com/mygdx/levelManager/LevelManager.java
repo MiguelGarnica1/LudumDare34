@@ -74,6 +74,7 @@ public class LevelManager {
 		levelup = Gdx.audio.newSound(Gdx.files.internal("levelup.wav"));
 		mus = Gdx.audio.newMusic(Gdx.files.internal("weed.mp3"));
 		mus.play();
+		mus.setVolume(.5f);
 		mus.setLooping(true);
 	}
 
@@ -227,7 +228,11 @@ public class LevelManager {
 	}
 
 	public void dispose() {
-
+		mus.dispose();
+		hud.dispose();
+		for(Sushi s: sushis){
+			s.dispose();
+		}
 	}
 	
 	public int[] getMaxSushi() {
