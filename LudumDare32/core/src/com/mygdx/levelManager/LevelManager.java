@@ -42,7 +42,7 @@ public class LevelManager {
 	private int currentLevel = 0;
 	private Music mus;
 	private Sound eat, blwe, meow;
-	
+	private Sound grownup, levelup;
 
 	public LevelManager(SceneLoader sceneLoader) {
 		sl = sceneLoader;
@@ -70,8 +70,9 @@ public class LevelManager {
 		eat = Gdx.audio.newSound(Gdx.files.internal("Chomp.mp3"));
 		meow = Gdx.audio.newSound(Gdx.files.internal("Meow.mp3"));
 		blwe = Gdx.audio.newSound(Gdx.files.internal("blarf.mp3"));
-		
-		mus = Gdx.audio.newMusic(Gdx.files.internal("meth.mp3"));
+		grownup = Gdx.audio.newSound(Gdx.files.internal("Powerup.wav"));
+		levelup = Gdx.audio.newSound(Gdx.files.internal("levelup.wav"));
+		mus = Gdx.audio.newMusic(Gdx.files.internal("weed.mp3"));
 		mus.play();
 		mus.setLooping(true);
 	}
@@ -165,6 +166,7 @@ public class LevelManager {
 			}
 			if(isEatRight){
 				eat.play();
+				grownup.play();
 				isEatRight = false;
 			}
 			
@@ -199,7 +201,15 @@ public class LevelManager {
 			hud.render(sl.getBatch());
 			hud.update(Gdx.graphics.getDeltaTime());
 			sl.getBatch().begin();
-			font.draw(sl.getBatch(), "Level "+currentLevel, 380, 100);
+			
+			
+			
+			if(currentLevel == 5){
+				font.draw(sl.getBatch(), "LAST LEVEL", 380, 100);
+			}else {
+				font.draw(sl.getBatch(), "Level "+currentLevel, 380, 100);
+			}
+			
 			if(currentLevel < 2){
 				space.draw(sl.getBatch(), "Space to eat", 360, 300);
 			}
@@ -210,7 +220,7 @@ public class LevelManager {
 	public void levelAdvance() {
 		cat.setSushiEaten(0);
 		cat.setHealth(3);
-		
+		levelup.play();
 		currentLevel++;
 		System.out.println("Level up to: " + currentLevel);
 		sushis.removeAll(sushis);

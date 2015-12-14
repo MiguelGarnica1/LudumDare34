@@ -53,7 +53,7 @@ public class OuttroManager {
 		dialouge[2].setLooping(false);
 
 		mus = Gdx.audio.newMusic(Gdx.files.internal("musicOutro.mp3"));
-		mus.setLooping(false);
+		mus.setLooping(true);
 		font = new BitmapFont();
 		next = new BitmapFont();    
 		
@@ -61,27 +61,44 @@ public class OuttroManager {
 		bubble = new Texture("Speech Rectangle.png");
 	}
 
+	
+	private float timeElapsed1;
+	private float timeElapsed2;
+	private float timeElapsed3;
+	
 	public void update(float dt) {
 		if (Gdx.input.isKeyJustPressed(Keys.ENTER)) {
 			if (currentQ < 3) {
 				currentQ++;
 			}
 		}
+		
+		
 		System.out.println(currentQ);
+		//jerry
 		if (currentQ == 0) {
 			font.setColor(Color.BLUE);
-			dialouge[0].play();
+			timeElapsed1 += dt;
+			if(timeElapsed1 < 3){
+				dialouge[0].play();
+			}
 		}
 		if (currentQ == 1) {
 			font.setColor(Color.TEAL);
 			dialouge[0].stop();
-			dialouge[1].play();
+			timeElapsed2+= dt;
+			if(timeElapsed2 < 5){
+				dialouge[1].play();
+			}
 		}
 
 		if (currentQ == 2) {
 			font.setColor(Color.BLUE);
 			dialouge[1].stop();
-			dialouge[2].play();
+			timeElapsed3 += dt;
+			if(timeElapsed3 < 3){
+				dialouge[2].play();
+			}
 		}
 
 		if (currentQ == 3){
