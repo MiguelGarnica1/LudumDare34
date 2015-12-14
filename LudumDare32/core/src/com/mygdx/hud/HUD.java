@@ -48,7 +48,7 @@ public class HUD {
 		for (int i = 0; i < hearts.length; i++) {
 			hearts[i] = new Texture("Heart.png");
 		}
-		position = new Vector2(415, 300);
+		position = new Vector2(378, 163);
 	}
 	float spawnTimeElapsed;
 	float timeFlickerRight;

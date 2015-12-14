@@ -9,78 +9,102 @@ import com.uwsoft.editor.renderer.components.additional.ButtonComponent;
 import com.uwsoft.editor.renderer.utils.ItemWrapper;
 
 public class SceneManager {
-	
+
 	private SceneLoader sl;
 	private Viewport vp;
+	public Viewport getVp() {
+		return vp;
+	}
 
 	private ItemWrapper root;
-	
-	private boolean isClicked = false;
+
+	private boolean isPlayClicked = false;
 
 	private LevelManager lvm;
-	
-	//private Cat cat;
+	private IntroManager im;
+	// private Cat cat;
 	private boolean isMainGameLoaded = false;
+	private boolean isIntroLoaded = false;
 	
-	public SceneManager(){
+	public SceneManager() {
 		sl = new SceneLoader();
 		vp = new FitViewport(800, 600);
-	
-		
+
 		init();
 	}
-	
-	public void init(){
+
+	public void init() {
 		sl.loadScene("MainMenu", vp);
 		root = new ItemWrapper(sl.getRoot());
 		sl.addComponentsByTagName("button", ButtonComponent.class);
 	}
+
+
+
 	
-	public void loadMainGame(){
-		lvm = new LevelManager(sl);	
-		isMainGameLoaded = true;
-	}
-	
-	public void update(float dt){
-		if(Gdx.input.isKeyJustPressed(Keys.ENTER)){
-			setScene("MainScene");
-		}
-		if(sl.getSceneVO().sceneName.equals("MainMenu")){
+	public void update(float dt) {
+		if (sl.getSceneVO().sceneName.equals("MainMenu")) {
 			System.out.println("IN BUTTON LOOPO");
-			System.out.println(isClicked);
-			root.getChild("button1").getEntity().getComponent(ButtonComponent.class).addListener(new ButtonComponent.ButtonListener() {
-				
-				@Override
-				public void touchUp() {}
-				@Override
-				public void touchDown() {}
-				@Override
-				public void clicked() {
-					// TODO Auto-generated method stub
-					System.out.println("CLICKED");
-					isClicked = true;
-				}
-			});
+			System.out.println(isPlayClicked);
+			root.getChild("button1").getEntity().getComponent(ButtonComponent.class)
+					.addListener(new ButtonComponent.ButtonListener() {
+						@Override
+						public void touchUp() {
+						}
+
+						@Override
+						public void touchDown() {
+						}
+
+						@Override
+						public void clicked() {
+							// TODO Auto-generated method stub
+							System.out.println("CLICKED");
+							isPlayClicked = true;
+						}
+					});
 		}
-		if(isClicked){
-			setScene("MainScene");
-			isClicked=false;
+		if (isPlayClicked) {
+			setScene("IntroScene");
+			isPlayClicked = false;
 		}
 		
-			if(sl.getSceneVO().sceneName.equals("MainScene")&& !isMainGameLoaded) loadMainGame();
-			if(sl.getSceneVO().sceneName.equals("MainScene")){
+		if (sl.getSceneVO().sceneName.equals("IntroScene") && !isIntroLoaded)
+			loadIntroGame();
+		if (sl.getSceneVO().sceneName.equals("IntroScene")) {
+			im.update(dt);
+		}
+		
+		if (sl.getSceneVO().sceneName.equals("MainScene") && !isMainGameLoaded)
+			loadMainGame();
+		if (sl.getSceneVO().sceneName.equals("MainScene")) {
 			lvm.update(dt);
 		}
 	}
-	
-	public void render(){
-		sl.getEngine().update(Gdx.graphics.getDeltaTime());
-		if(sl.getSceneVO().sceneName.equals("MainScene")){
-			lvm.render();
-		}
+
+
+	public void loadIntroGame() {
+		im = new IntroManager(this);
+		isIntroLoaded = true;
 	}
 	
-	public void setScene(String scene){
+	public void loadMainGame() {
+		lvm = new LevelManager(sl);
+		isMainGameLoaded = true;
+	}
+	
+	public void render() {
+		sl.getEngine().update(Gdx.graphics.getDeltaTime());
+		if (sl.getSceneVO().sceneName.equals("MainScene")) {
+			lvm.render();
+		}
+		
+		if (sl.getSceneVO().sceneName.equals("IntroScene")) {
+			im.render(sl.getBatch());
+		}
+	}
+
+	public void setScene(String scene) {
 		sl.loadScene(scene, vp);
 	}
 }

@@ -31,7 +31,6 @@ public class LevelManager {
 	private int[] maxSushi;
 	
 	private ArrayList<Sushi> sushis;
-
 	public ArrayList<Sushi> getSushis() {
 		return sushis;
 	}
@@ -66,7 +65,7 @@ public class LevelManager {
 	}
 
 	private void setMaxSushiValue(int[] arr) {
-		int num = 5;
+		int num = 2;
 		for (int i = 1; i < arr.length; i++) {
 			arr[i] = num + i*2;
 		}

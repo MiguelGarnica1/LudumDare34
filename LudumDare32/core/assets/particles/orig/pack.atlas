@@ -1,20 +1,48 @@
 
 pack.png
-size: 2048,1024
+size: 4096,1024
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-background
+Play Button
   rotate: false
-  xy: 1028, 74
-  size: 896, 504
-  orig: 896, 504
+  xy: 2856, 562
+  size: 362, 330
+  orig: 362, 330
+  offset: 0, 0
+  index: -1
+Special Square
+  rotate: false
+  xy: 1028, 254
+  size: 60, 60
+  orig: 60, 60
+  offset: 0, 0
+  index: -1
+Title Screen
+  rotate: false
+  xy: 2054, 292
+  size: 800, 600
+  orig: 800, 600
   offset: 0, 0
   index: -1
 background1 (2)
   rotate: false
-  xy: 2, 2
+  xy: 1028, 316
   size: 1024, 576
   orig: 1024, 576
+  offset: 0, 0
+  index: -1
+background4-3
+  rotate: false
+  xy: 2, 124
+  size: 1024, 768
+  orig: 1024, 768
+  offset: 0, 0
+  index: -1
+sushi
+  rotate: false
+  xy: 2, 2
+  size: 120, 120
+  orig: 120, 120
   offset: 0, 0
   index: -1
