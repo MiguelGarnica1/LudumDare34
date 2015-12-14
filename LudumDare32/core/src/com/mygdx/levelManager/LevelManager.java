@@ -31,8 +31,9 @@ public class LevelManager {
 	private BitmapFont space;
 	private float[] time;
 	private int[] maxSushi;
-	
+
 	private ArrayList<Sushi> sushis;
+
 	public ArrayList<Sushi> getSushis() {
 		return sushis;
 	}
@@ -40,6 +41,9 @@ public class LevelManager {
 	private float timeElap;
 
 	private int currentLevel = 0;
+	// level 0 and the last level dont count
+	// so the real maxlevel is MAXLEVEL - 2
+	public static final int MAXLEVEL = 7;
 	private Music mus;
 	private Sound eat, blwe, meow;
 	private Sound grownup, levelup;
@@ -55,18 +59,18 @@ public class LevelManager {
 		hud = new HUD(cat, this);
 		font = new BitmapFont();
 		space = new BitmapFont();
-		
-		maxSushi = new int[7];
+
+		maxSushi = new int[MAXLEVEL];
 		maxSushi[0] = 0;
 		setMaxSushiValue(maxSushi);
 
-		time = new float[7];
+		time = new float[MAXLEVEL];
 		time[0] = 0f;
 		setTime(time);
 
 		sushis = new ArrayList<Sushi>();
 		sushis.add(new Sushi());
-		
+
 		eat = Gdx.audio.newSound(Gdx.files.internal("Chomp.mp3"));
 		meow = Gdx.audio.newSound(Gdx.files.internal("Meow.mp3"));
 		blwe = Gdx.audio.newSound(Gdx.files.internal("blarf.mp3"));
@@ -79,9 +83,9 @@ public class LevelManager {
 	}
 
 	private void setMaxSushiValue(int[] arr) {
-		int num = 1;
+		int num = 3;
 		for (int i = 1; i < arr.length; i++) {
-			arr[i] = num + i*2;
+			arr[i] = num + i * 2;
 		}
 	}
 
@@ -90,21 +94,21 @@ public class LevelManager {
 	}
 
 	public void setTime(float[] arr) {
-		float timet = 3f;
-		for (int i = 1; i < arr.length; i++) {
-			arr[i] = timet *= .65f;
-		}
-	}
+		 float timet = 3f;
+		 for (int i = 1; i < arr.length; i++) {
+		 arr[i] = timet *= .65f;
+		 }
 
+	}
 
 	public float[] getTime() {
 		return time;
 	}
+
 	public int getCurrentLevel() {
 		return currentLevel;
 	}
 
-	
 	public void createSushi(int lvl) {
 		if (timeElap > time[lvl]) {
 			if (sushis.size() < 75) {
@@ -113,79 +117,132 @@ public class LevelManager {
 					if (s.getPosition().y == 240 - hud.getSushi().getDimension().y / 2) {
 						if (s.getPosition().x > pos.x + s.getDimension().x) {
 							sushis.add(new Sushi());
-							
+
 							break;
 						}
 					}
 				}
-				
+
 				if (sushis.isEmpty()) {
 					sushis.add(new Sushi());
 				}
-				//hud.flickerRight(Gdx.graphics.getDeltaTime());
+				// hud.flickerRight(Gdx.graphics.getDeltaTime());
 			}
 			timeElap = 0;
 		}
 
 	}
+
 	private boolean isEatRight = false;
 	private boolean isEatWrong = false;
+
 	public void update(float dt) {
-		//if (cat.getHealth() > 0) {
-			timeElap += Gdx.graphics.getDeltaTime();
-			
-			if(cat.getSushiEaten() == maxSushi[currentLevel]){
-				levelAdvance();
-			}
-			createSushi(currentLevel);
-			for (int i = 0; i < sushis.size(); i++) {
-				sushis.get(i).update(dt);
-				if (sushis.get(i).isInRangeX(370, 425, 240 - hud.getSushi().getDimension().y / 2)
-						&& Gdx.input.isKeyJustPressed(Keys.SPACE)) {
-					if (hud.getSushi().getId() == sushis.get(i).getId()) {
-						cat.getFat();
-						cat.setSushiEaten(cat.getSushiEaten() + 1);
-						sushis.remove(i);
-						isEatRight = true;
-					} else {
-						sushis.remove(i);
-						cat.setSushiEaten(cat.getSushiEaten() + 1);
-						cat.setHealth(cat.getHealth() - 1);
-						System.out.println("wrong one u fool");
-						isEatWrong = true;
-					}
-				}else if(sushis.get(i).isInRangeY(224, 174, 80)){
-					sushis.remove(i);
-				}
-				
-				if(sushis.get(i).getTimeElapsed() >= 16.5){
-					sushis.remove(i);
-				}
-			}
-			if(Gdx.input.isKeyJustPressed(Keys.SPACE) && !isEatRight && !isEatWrong  && currentLevel!= 6){
-				meow.play();
-			}
-			if(isEatRight){
-				eat.play();
-				grownup.play();
-				isEatRight = false;
-			}
-			
-			if(isEatWrong){
-				blwe.play();
-				isEatWrong = false;
-			}
-	//	}
+		// if (cat.getHealth() > 0) {
+		timeElap += Gdx.graphics.getDeltaTime();
+
+		if (cat.getSushiEaten() == maxSushi[currentLevel]) {
+			levelAdvance();
+		}
+		createSushi(currentLevel);
+
+		removeSushiByWidth(dt);
+
+		if (Gdx.input.isKeyJustPressed(Keys.SPACE) && !isEatRight && !isEatWrong && currentLevel != 6) {
+			meow.play();
+		}
+		if (isEatRight) {
+			eat.play();
+			grownup.play();
+			isEatRight = false;
+		}
+
+		if (isEatWrong) {
+			blwe.play();
+			isEatWrong = false;
+		}
+		// }
 
 		if (cat.getHealth() <= 0) {
 			mus.stop();
+			HUD.TIME = 2f;
 			sl.loadScene("DeathScene", vp);
 		}
-		if(currentLevel == 6){
+		if (currentLevel == 6) {
 			mus.stop();
 			sl.loadScene("OuttroScene", vp);
 		}
 
+	}
+
+	public void removeSushiOnebyOne(float dt) {
+		for (int i = 0; i < sushis.size(); i++) {
+			sushis.get(i).update(dt);
+			if (sushis.get(i).isInRangeX(370, 425, 240 - hud.getSushi().getDimension().y / 2)
+					&& Gdx.input.isKeyJustPressed(Keys.SPACE)) {
+				if (hud.getSushi().getId() == sushis.get(i).getId()) {
+					cat.getFat();
+					cat.setSushiEaten(cat.getSushiEaten() + 1);
+					sushis.remove(i);
+					isEatRight = true;
+				} else {
+					sushis.remove(i);
+					cat.setSushiEaten(cat.getSushiEaten() + 1);
+					cat.setHealth(cat.getHealth() - 1);
+					System.out.println("wrong one u fool");
+					isEatWrong = true;
+				}
+			} else if (sushis.get(i).isInRangeY(224, 174, 80)) {
+				sushis.remove(i);
+			}
+
+			if (sushis.get(i).getTimeElapsed() >= 16.5) {
+				sushis.remove(i);
+			}
+		}
+	}
+
+	public void removeSushiByWidth(float dt) {
+		for (int i = 0; i < sushis.size(); i++) {
+			sushis.get(i).update(dt);
+			if (sushis.get(i).isInRangeY(224, 174, 80)) {
+				sushis.remove(i);
+			}
+		}
+
+		if (Gdx.input.isKeyJustPressed(Keys.SPACE) && sushis.size() > 0) {
+			ArrayList<SushiWidth> sushiList = new ArrayList<SushiWidth>();
+			for (int i = 0; i < sushis.size(); i++) {
+				Sushi temp = sushis.get(i);
+				if (temp.isInRangeX(370, 425, 240 - hud.getSushi().getDimension().y / 2)) {
+					sushiList.add(new SushiWidth(temp, 370, 425));
+				}
+			}
+			if (sushiList.size() > 0) {
+				SushiWidth sushiW = sushiList.get(0);
+				if (sushiList.size() > 1) {
+					for (int i = 1; i < sushiList.size(); i++) {
+						if (sushiW.getWidth() < sushiList.get(i).getWidth()) {
+							sushiW = sushiList.get(i);
+						}
+					}
+				}
+				if (hud.getSushi().getId() == sushiW.getSushi().getId()) {
+					cat.getFat();
+					cat.setSushiEaten(cat.getSushiEaten() + 1);
+					sushis.remove(sushiW.getSushi());
+					isEatRight = true;
+				} else {
+					sushis.remove(sushiW.getSushi());
+					cat.setSushiEaten(cat.getSushiEaten() + 1);
+					cat.setHealth(cat.getHealth() - 1);
+					System.out.println("wrong one u fool");
+					isEatWrong = true;
+				}
+			}
+			///////////////////
+
+			// sushis.remove(sushiW.getSushi());
+		}
 	}
 
 	public void removeAll() {
@@ -195,27 +252,25 @@ public class LevelManager {
 
 	public void render() {
 
-		//if (cat.getHealth() > 0) {
-			for (Sushi sush : sushis) {
-				sush.render(sl.getBatch());
-			}
-			hud.render(sl.getBatch());
-			hud.update(Gdx.graphics.getDeltaTime());
-			sl.getBatch().begin();
-			
-			
-			
-			if(currentLevel == 5){
-				font.draw(sl.getBatch(), "LAST LEVEL", 380, 100);
-			}else {
-				font.draw(sl.getBatch(), "Level "+currentLevel, 380, 100);
-			}
-			
-			if(currentLevel < 2){
-				space.draw(sl.getBatch(), "Space to eat", 360, 300);
-			}
-			sl.getBatch().end();
-		//}
+		// if (cat.getHealth() > 0) {
+		for (Sushi sush : sushis) {
+			sush.render(sl.getBatch());
+		}
+		hud.render(sl.getBatch());
+		hud.update(Gdx.graphics.getDeltaTime());
+		sl.getBatch().begin();
+
+		if (currentLevel == 5) {
+			font.draw(sl.getBatch(), "LAST LEVEL", 380, 100);
+		} else {
+			font.draw(sl.getBatch(), "Level " + currentLevel, 380, 100);
+		}
+
+		if (currentLevel < 2) {
+			space.draw(sl.getBatch(), "Space to eat", 360, 300);
+		}
+		sl.getBatch().end();
+		// }
 	}
 
 	public void levelAdvance() {
@@ -223,6 +278,7 @@ public class LevelManager {
 		cat.setHealth(3);
 		levelup.play();
 		currentLevel++;
+		HUD.TIME -= HUD.TIME * .2f;
 		System.out.println("Level up to: " + currentLevel);
 		sushis.removeAll(sushis);
 	}
@@ -230,20 +286,42 @@ public class LevelManager {
 	public void dispose() {
 		mus.dispose();
 		hud.dispose();
-		for(Sushi s: sushis){
+		for (Sushi s : sushis) {
 			s.dispose();
 		}
 	}
-	
+
 	public int[] getMaxSushi() {
 		return maxSushi;
 	}
-	
+
 	public ItemWrapper getRoot() {
 		return root;
 	}
 
 	public void setMaxSushi(int[] maxSushi) {
 		this.maxSushi = maxSushi;
+	}
+}
+
+class SushiWidth {
+	private Sushi sushi;
+	private float width;
+
+	public SushiWidth(Sushi s, float xl, float xr) {
+		sushi = s;
+		if (sushi.getPosition().x < xl) {
+			width = sushi.getPosition().x + sushi.getDimension().x - xl;
+		} else {
+			width = xr - sushi.getPosition().x;
+		}
+	}
+
+	public Sushi getSushi() {
+		return sushi;
+	}
+
+	public float getWidth() {
+		return width;
 	}
 }

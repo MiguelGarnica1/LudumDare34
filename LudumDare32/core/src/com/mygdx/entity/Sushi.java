@@ -111,7 +111,8 @@ public class Sushi implements Component {
 	}
 
 	public boolean isInRangeX(float xleft, float xright, float y) {
-		if (getPosition().x > xleft && getPosition().x + dimension.x < xright) {
+		if (getPosition().x + dimension.x > xleft && getPosition().x  < xright) {
+			//if (getPosition().x  > xleft && getPosition().x + dimension.x < xright) 
 			if (getPosition().y == y) {
 				// System.out.println("EAT ME!");
 				return true;

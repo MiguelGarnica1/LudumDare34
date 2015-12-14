@@ -34,13 +34,13 @@ public class IntroManager {
 		currentT = introTexture[0];
 
 		quotes = new String[5];
-		quotes[0] = "Jerry: Meow..., fat cats get all the good things in life. "
+		quotes[0] = "Jaried: Meow..., fat cats get all the good things in life. "
 				+ "\nThey get all the pussy(cats), cars, and dough. "
 				+ "\nIf you wanna live the good life, you gotta be a fat cat.";
 		quotes[1] = "Cosmo: Dang i want that! Guess i'll become a fat cat. ";
 		quotes[2] = "Cosmo: Thxs for the moula, >;3. I'll be \"borrowing\" " + "\nit for a while.  ";
 		quotes[3] = "Fat Cat: DAMN YOU ALLEY CAT.";
-		quotes[4] = "Jerry: Damn Cosmo, you crazy " + "\n*as he watches Cosmo flee*";
+		quotes[4] = "Jaried: Damn Cosmo, you crazy " + "\n*as he watches Cosmo flee*";
 
 		font = new BitmapFont();
 		next = new BitmapFont();

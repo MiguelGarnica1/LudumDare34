@@ -27,7 +27,7 @@ public class HUD {
 	
 	private Vector2 position;
 	private float timeElap;
-	public static final float TIME = 1f;
+	public static float TIME = 2.4f;
 
 	public HUD(Cat cat, LevelManager lvm) {
 		this.cat = cat;

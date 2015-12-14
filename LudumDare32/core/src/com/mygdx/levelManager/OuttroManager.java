@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.mygdx.entity.Sushi;
 
 public class OuttroManager {
 	private SceneManager sm;
@@ -36,9 +37,9 @@ public class OuttroManager {
 		currentT = outtroTexture[0];
 
 		quotes = new String[3];
-		quotes[0] = "Jerry: Why are you so fat?";
+		quotes[0] = "Jaried: Why are you so fat?";
 		quotes[1] = "Cosmo: I wanted the fat cat life, so i got fat.";
-		quotes[2] = "Jerry: How you so stupid";
+		quotes[2] = "Jaried: How you so stupid";
 
 		dialouge = new Music[3];
 		dialouge[0] = Gdx.audio.newMusic(Gdx.files.internal("SnowTestes3.mp3"));
@@ -139,3 +140,5 @@ public class OuttroManager {
 		mus.dispose();
 	}
 }
+
+
