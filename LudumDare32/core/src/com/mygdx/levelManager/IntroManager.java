@@ -3,7 +3,6 @@ package com.mygdx.levelManager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -22,7 +21,7 @@ public class IntroManager {
 	private BitmapFont font;
 	
 	private Music[] dialouge;
-	
+	private Music mus;
 	public IntroManager(SceneManager sm){
 		this.sm = sm;
 		
@@ -33,14 +32,14 @@ public class IntroManager {
 		currentT = introTexture[0];
 		
 		quotes = new String[5];
-		quotes[0] = "SnowTestes: Meow..., fat cats get all the good things in life. "
+		quotes[0] = "Jerry: Meow..., fat cats get all the good things in life. "
 			    + "\nThey get all the pussy(cats), cars, and dough. "
 				+ "\nIf you wanna live the good life, you gotta be a fat cat.";
 		quotes[1] = "Cosmo: Dang i want that! Guess i'll become a fat cat. ";
 		quotes[2] = "Cosmo: Thxs for the moula, >;3. I'll be \"borrowing\" "
 				+ "\nit for a while.  ";
-		quotes[3] = "Rich Cat: DAMN YOU ALLEY CAT.";
-		quotes[4] = "SnowTestes: Damn Cosmo, you crazy "
+		quotes[3] = "Fat Cat: DAMN YOU ALLEY CAT.";
+		quotes[4] = "Jerry: Damn Cosmo, you crazy "
 				+ "\n*as he watches Cosmo flee*";
 		
 		font = new BitmapFont();
@@ -49,29 +48,33 @@ public class IntroManager {
 		dialouge[0] = Gdx.audio.newMusic(Gdx.files.internal("SnowTestes1.mp3"));
 		dialouge[1] = Gdx.audio.newMusic(Gdx.files.internal("Cosmo Line 1.mp3"));
 		dialouge[2] = Gdx.audio.newMusic(Gdx.files.internal("Cosmo Line 2.mp3"));
-		dialouge[3] = Gdx.audio.newMusic(Gdx.files.internal("blarf.mp3"));
+		dialouge[3] = Gdx.audio.newMusic(Gdx.files.internal("Fat line.mp3"));
 		dialouge[4] = Gdx.audio.newMusic(Gdx.files.internal("SnowTestes2.mp3"));
 		
 
-		dialouge[0].setLooping(false);;
+		
 		dialouge[1].setLooping(false);
 		dialouge[2].setLooping(false);
-		dialouge[3].setLooping(true);
+		dialouge[3].setLooping(false);
 		dialouge[4].setLooping(false);
 		
+		mus = Gdx.audio.newMusic(Gdx.files.internal("musicIntro.mp3"));
+		mus.play();
+		mus.setLooping(true);
 		bubble = new Texture("Speech Rectangle.png");
+		
+		
 	}
 	
 	
 	public void update(float dt){
-		if(Gdx.input.isKeyJustPressed(Keys.SPACE)){
+		if(Gdx.input.isKeyJustPressed(Keys.ENTER)){
 			currentQ++;
 		}
 
 		if(currentQ == 0){
 			font.setColor(Color.BLUE);
-			dialouge[0].play();
-			System.out.println(dialouge[0].isLooping());		
+			dialouge[0].play();	
 		}
 		if(currentQ == 1){
 			font.setColor(Color.TEAL);
@@ -94,6 +97,7 @@ public class IntroManager {
 		if(currentQ == 4){
 			font.setColor(Color.BLUE);
 			dialouge[3].stop();
+			dialouge[4].setLooping(false);
 			dialouge[4].play();
 		}
 
@@ -112,6 +116,7 @@ public class IntroManager {
 		
 		if(currentQ == 5){
 			dialouge[4].stop();
+			mus.stop();
 			sm.setScene("MainScene");
 		}
 	}

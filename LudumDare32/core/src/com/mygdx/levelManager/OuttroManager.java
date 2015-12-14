@@ -2,15 +2,14 @@ package com.mygdx.levelManager;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class OuttroManager {
 	private SceneManager sm;
-	private Viewport vp;
 
 	private Texture[] outtroTexture;
 	private Texture currentT;
@@ -18,54 +17,75 @@ public class OuttroManager {
 	private String[] quotes;
 	private int currentQ = 0;
 
+	private Music[] dialouge;
+	
 	private Texture bubble;
-
 	private BitmapFont font;
 
+	private Music mus;
 	public OuttroManager(SceneManager sm) {
 		this.sm = sm;
 
 		outtroTexture = new Texture[4];
-		outtroTexture[0] = new Texture("outtro1.png");
-		outtroTexture[1] = new Texture("outtro2.png");
-		outtroTexture[2] = new Texture("outtro3.png");
-		outtroTexture[3] = new Texture("outtro4.png");
+		outtroTexture[0] = new Texture("OutroScene 1.png");
+		outtroTexture[1] = new Texture("OutroScene 2.png");
+		outtroTexture[2] = new Texture("OutroScene 3.png");
+		outtroTexture[3] = new Texture("end.png");
 		currentT = outtroTexture[0];
 
-		quotes = new String[4];
-		quotes[0] = "Cat1: urgg, these rich fat cat, ... dang ... blabg";
-		quotes[1] = "Cat2: huh huhd ?";
-		quotes[2] = "Cat2: fat ? cat ? kkk";
-		quotes[3] = "Cat2: me want fat!";
+		quotes = new String[3];
+		quotes[0] = "Jerry: Why are you so fat?";
+		quotes[1] = "Cosmo: I wanted the fat cat life, so i got fat.";
+		quotes[2] = "Jerry: How you so stupid";
 
+		dialouge = new Music[3];
+		dialouge[0] = Gdx.audio.newMusic(Gdx.files.internal("SnowTestes3.mp3"));
+		dialouge[1] = Gdx.audio.newMusic(Gdx.files.internal("Cosmo Line 3.mp3"));
+		dialouge[2] = Gdx.audio.newMusic(Gdx.files.internal("SnowTestes4.mp3"));
+
+
+		
+		
+		dialouge[0].setLooping(false);
+		dialouge[1].setLooping(false);
+		dialouge[2].setLooping(false);
+
+		mus = Gdx.audio.newMusic(Gdx.files.internal("musicOutro.mp3"));
+		mus.setLooping(false);
 		font = new BitmapFont();
-
+		
+		mus.play();
 		bubble = new Texture("Speech Rectangle.png");
 	}
 
 	public void update(float dt) {
-		if (Gdx.input.isKeyJustPressed(Keys.SPACE)) {
+		if (Gdx.input.isKeyJustPressed(Keys.ENTER)) {
 			if (currentQ < 3) {
 				currentQ++;
 			}
-
 		}
-
+		System.out.println(currentQ);
 		if (currentQ == 0) {
 			font.setColor(Color.BLUE);
+			dialouge[0].play();
 		}
 		if (currentQ == 1) {
 			font.setColor(Color.TEAL);
+			dialouge[0].stop();
+			dialouge[1].play();
 		}
 
 		if (currentQ == 2) {
-			font.setColor(Color.TEAL);
+			font.setColor(Color.BLUE);
+			dialouge[1].stop();
+			dialouge[2].play();
 		}
 
-		if (currentQ == 3) {
-			font.setColor(Color.TEAL);
+		if (currentQ == 3){
+			dialouge[2].stop();
 		}
 
+		
 		if (currentQ == 0) {
 			currentT = outtroTexture[0];
 		}
@@ -95,6 +115,6 @@ public class OuttroManager {
 	}
 	
 	public void dispose(){
-		
+		mus.dispose();
 	}
 }

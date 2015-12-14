@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.Vector2;
@@ -39,7 +40,7 @@ public class LevelManager {
 	private float timeElap;
 
 	private int currentLevel = 0;
-	
+	private Music mus;
 	private Sound eat, blwe, meow;
 	
 
@@ -68,10 +69,14 @@ public class LevelManager {
 		eat = Gdx.audio.newSound(Gdx.files.internal("Chomp.mp3"));
 		meow = Gdx.audio.newSound(Gdx.files.internal("Meow.mp3"));
 		blwe = Gdx.audio.newSound(Gdx.files.internal("blarf.mp3"));
+		
+		mus = Gdx.audio.newMusic(Gdx.files.internal("meth.mp3"));
+		mus.play();
+		mus.setLooping(true);
 	}
 
 	private void setMaxSushiValue(int[] arr) {
-		int num = 2;
+		int num = 1;
 		for (int i = 1; i < arr.length; i++) {
 			arr[i] = num + i*2;
 		}
@@ -154,7 +159,7 @@ public class LevelManager {
 					sushis.remove(i);
 				}
 			}
-			if(Gdx.input.isKeyJustPressed(Keys.SPACE) && !isEatRight && !isEatWrong){
+			if(Gdx.input.isKeyJustPressed(Keys.SPACE) && !isEatRight && !isEatWrong  && currentLevel!= 6){
 				meow.play();
 			}
 			if(isEatRight){
@@ -172,6 +177,7 @@ public class LevelManager {
 			sl.loadScene("DeathScene", vp);
 		}
 		if(currentLevel == 6){
+			mus.stop();
 			sl.loadScene("OuttroScene", vp);
 		}
 
