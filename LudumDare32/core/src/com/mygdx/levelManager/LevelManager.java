@@ -28,7 +28,7 @@ public class LevelManager {
 	private Cat cat;
 
 	private BitmapFont font;
-
+	private BitmapFont space;
 	private float[] time;
 	private int[] maxSushi;
 	
@@ -54,6 +54,8 @@ public class LevelManager {
 
 		hud = new HUD(cat, this);
 		font = new BitmapFont();
+		space = new BitmapFont();
+		
 		maxSushi = new int[7];
 		maxSushi[0] = 0;
 		setMaxSushiValue(maxSushi);
@@ -198,6 +200,9 @@ public class LevelManager {
 			hud.update(Gdx.graphics.getDeltaTime());
 			sl.getBatch().begin();
 			font.draw(sl.getBatch(), "Level "+currentLevel, 380, 100);
+			if(currentLevel < 2){
+				space.draw(sl.getBatch(), "Space to eat", 360, 300);
+			}
 			sl.getBatch().end();
 		//}
 	}
