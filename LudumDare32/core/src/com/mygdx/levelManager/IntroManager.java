@@ -2,6 +2,7 @@ package com.mygdx.levelManager;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -17,6 +18,8 @@ public class IntroManager {
 	private String[] quotes;
 	private int currentQ = 0;
 	
+	private Texture bubble;
+
 	private BitmapFont font;
 	public IntroManager(SceneManager sm){
 		this.sm = sm;
@@ -28,18 +31,37 @@ public class IntroManager {
 		currentT = introTexture[0];
 		
 		quotes = new String[4];
-		quotes[0] = "urgg, these rich fat cat, ... dang ... blabg";
-		quotes[1] = "huh huhd ?";
-		quotes[2] = "fat ? cat ? kkk";
-		quotes[3] = "me want fat!";
+		quotes[0] = "Cat1: urgg, these rich fat cat, ... dang ... blabg";
+		quotes[1] = "Cat2: huh huhd ?";
+		quotes[2] = "Cat2: fat ? cat ? kkk";
+		quotes[3] = "Cat2: me want fat!";
 		
 		font = new BitmapFont();
+		
+		bubble = new Texture("Speech Rectangle.png");
 	}
+	
 	
 	public void update(float dt){
 		if(Gdx.input.isKeyJustPressed(Keys.SPACE)){
 			currentQ++;
 		}
+		
+		if(currentQ == 0){
+			font.setColor(Color.BLUE);
+		}
+		if(currentQ == 1){
+			font.setColor(Color.TEAL);
+		}
+
+		if(currentQ == 2){
+			font.setColor(Color.TEAL);
+		}
+
+		if(currentQ == 3){
+			font.setColor(Color.TEAL);
+		}
+
 		if(currentQ == 1 || currentQ == 0){
 			currentT = introTexture[0];
 		}
@@ -60,7 +82,8 @@ public class IntroManager {
 	public void render(Batch batch){
 		batch.begin();
 		batch.draw(currentT, 0,0, sm.getVp().getCamera().viewportWidth, sm.getVp().getCamera().viewportHeight);
-		font.draw(batch, quotes[currentQ], 100, 100);
+		batch.draw(bubble, 300, 50, 400, 50 );
+		font.draw(batch, quotes[currentQ], 350, 80);
 		batch.end();
 	}
 	

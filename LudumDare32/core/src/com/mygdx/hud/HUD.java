@@ -48,7 +48,7 @@ public class HUD {
 		for (int i = 0; i < hearts.length; i++) {
 			hearts[i] = new Texture("Heart.png");
 		}
-		position = new Vector2(378, 163);
+		position = new Vector2(380, 163);
 	}
 	float spawnTimeElapsed;
 	float timeFlickerRight;
@@ -110,7 +110,7 @@ public class HUD {
 		}
 		
 		batch.draw(chuteRight,85, 210, 65, 65);
-		batch.draw(chuteDown,70, 180, 50, 45);
+		batch.draw(chuteDown,77, 180, 50, 45);
 		batch.end();
 
 		progressBar.render(batch);
