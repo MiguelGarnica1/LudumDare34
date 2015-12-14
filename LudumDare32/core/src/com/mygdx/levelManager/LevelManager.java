@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.viewport.FitViewport;
@@ -39,7 +40,8 @@ public class LevelManager {
 
 	private int currentLevel = 0;
 	
-
+	private Sound eat, blwe, meow;
+	
 
 	public LevelManager(SceneLoader sceneLoader) {
 		sl = sceneLoader;
@@ -52,16 +54,20 @@ public class LevelManager {
 		hud = new HUD(cat, this);
 
 		
-		maxSushi = new int[6];
+		maxSushi = new int[7];
 		maxSushi[0] = 0;
 		setMaxSushiValue(maxSushi);
 
-		time = new float[6];
+		time = new float[7];
 		time[0] = 0f;
 		setTime(time);
 
 		sushis = new ArrayList<Sushi>();
 		sushis.add(new Sushi());
+		
+		eat = Gdx.audio.newSound(Gdx.files.internal("Chomp.mp3"));
+		meow = Gdx.audio.newSound(Gdx.files.internal("Meow.mp3"));
+		blwe = Gdx.audio.newSound(Gdx.files.internal("blarf.mp3"));
 	}
 
 	private void setMaxSushiValue(int[] arr) {
@@ -114,7 +120,8 @@ public class LevelManager {
 		}
 
 	}
-
+	private boolean isEatRight = false;
+	private boolean isEatWrong = false;
 	public void update(float dt) {
 		//if (cat.getHealth() > 0) {
 			timeElap += Gdx.graphics.getDeltaTime();
@@ -131,11 +138,13 @@ public class LevelManager {
 						cat.getFat();
 						cat.setSushiEaten(cat.getSushiEaten() + 1);
 						sushis.remove(i);
+						isEatRight = true;
 					} else {
 						sushis.remove(i);
 						cat.setSushiEaten(cat.getSushiEaten() + 1);
 						cat.setHealth(cat.getHealth() - 1);
 						System.out.println("wrong one u fool");
+						isEatWrong = true;
 					}
 				}else if(sushis.get(i).isInRangeY(224, 174, 80)){
 					sushis.remove(i);
@@ -145,10 +154,25 @@ public class LevelManager {
 					sushis.remove(i);
 				}
 			}
+			if(Gdx.input.isKeyJustPressed(Keys.SPACE) && !isEatRight && !isEatWrong){
+				meow.play();
+			}
+			if(isEatRight){
+				eat.play();
+				isEatRight = false;
+			}
+			
+			if(isEatWrong){
+				blwe.play();
+				isEatWrong = false;
+			}
 	//	}
 
 		if (cat.getHealth() <= 0) {
 			sl.loadScene("DeathScene", vp);
+		}
+		if(currentLevel == 6){
+			sl.loadScene("OuttroScene", vp);
 		}
 
 	}

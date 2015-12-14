@@ -19,20 +19,23 @@ public class SceneManager {
 	private ItemWrapper root;
 
 	private boolean isPlayClicked = false;
-	private boolean isClickedDeath = false;
-	private boolean isClickedRestart = false;
+
 	
 	private LevelManager lvm;
 	private IntroManager im;
+	private OuttroManager om;
 	// private Cat cat;
 	private boolean isMainGameLoaded = false;
 	private boolean isIntroLoaded = false;
+	private boolean isOutroLoaded = false;
 	
 	public SceneManager() {
 		sl = new SceneLoader();
 		vp = new FitViewport(800, 600);
 
 		init();
+		
+
 	}
 
 	public void init() {
@@ -57,18 +60,34 @@ public class SceneManager {
 			im.update(dt);
 		}
 		
+		System.out.println(sl.getSceneVO().sceneName);
 		if (sl.getSceneVO().sceneName.equals("MainScene") && !isMainGameLoaded)
 			loadMainGame();
 		if (sl.getSceneVO().sceneName.equals("MainScene")) {
 			lvm.update(dt);
 		}
+		
+		if (sl.getSceneVO().sceneName.equals("OuttroScene") && !isOutroLoaded)
+			loadOuttroGame();
+		if (sl.getSceneVO().sceneName.equals("OuttroScene")) {
+			om.update(dt);
+		}
+		
+		if(sl.getSceneVO().sceneName.equals("DeathScene")){
+			if(Gdx.input.isKeyJustPressed(Keys.ENTER)){
+				setScene("MainScene");
+				isMainGameLoaded = false;
+			}
+		}
+		
+		
 	}
 
 	public void updateButtons(){
 		
 		if(sl.getSceneVO().sceneName.equals("MainMenu")){
 			
-			System.out.println("IN BUTTON LOOPO");
+			//System.out.println("IN BUTTON LOOPO");
 			root.getChild("button1").getEntity().getComponent(ButtonComponent.class).addListener(new ButtonComponent.ButtonListener() {
 				
 				@Override
@@ -78,50 +97,23 @@ public class SceneManager {
 				@Override
 				public void clicked() {
 					// TODO Auto-generated method stub
-					System.out.println("CLICKED");
+					//System.out.println("CLICKED");
 					isPlayClicked = true;
 					
 				}
 			});
 		}
 		
-		if(sl.getSceneVO().sceneName.equals("DeathScene")){
-			
-			root.getChild("button1").getEntity().getComponent(ButtonComponent.class).addListener(new ButtonComponent.ButtonListener() {
-				
-				@Override
-				public void touchUp() {}
-				@Override
-				public void touchDown() {}
-				@Override
-				public void clicked() {
-					// TODO Auto-generated method stub
-					System.out.println("CLICKED");
-					isClickedDeath = true;
-					
-				}
-			});
-		}
-		if(sl.getSceneVO().sceneName.equals("DeathScene")){
-//			root.getChild("button2").getEntity().getComponent(ButtonComponent.class).addListener(new ButtonComponent.ButtonListener() {
-//				
-//				@Override
-//				public void touchUp() {}
-//				@Override
-//				public void touchDown() {}
-//				@Override
-//				public void clicked() {
-//					// TODO Auto-generated method stub
-//					System.out.println("CLICKED");
-//					isClickedRestart = true;
-//					
-//				}
-//			});
-		}
+		
 	}
 	public void loadIntroGame() {
 		im = new IntroManager(this);
 		isIntroLoaded = true;
+	}
+	
+	public void loadOuttroGame() {
+		om = new OuttroManager(this);
+		isOutroLoaded  = true;
 	}
 	
 	public void loadMainGame() {
@@ -138,9 +130,19 @@ public class SceneManager {
 		if (sl.getSceneVO().sceneName.equals("IntroScene")) {
 			im.render(sl.getBatch());
 		}
+		
+		if(sl.getSceneVO().sceneName.equals("OuttroScene")){
+			om.render(sl.getBatch());
+		}
 	}
 
 	public void setScene(String scene) {
 		sl.loadScene(scene, vp);
+	}
+	
+	public void dispose(){
+		im.dispose();
+		lvm.dispose();
+		om.dispose();
 	}
 }
