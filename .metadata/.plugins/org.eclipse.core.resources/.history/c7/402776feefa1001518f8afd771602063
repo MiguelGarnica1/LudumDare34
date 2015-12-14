@@ -47,38 +47,6 @@ public class SceneManager {
 		if(Gdx.input.isKeyJustPressed(Keys.ENTER)){
 			setScene("MainScene");
 		}
-		
-		updateButtons();
-		
-		if(isClicked){
-			setScene("MainScene");
-			isClicked=false;
-		}
-		
-		if(isClickedDeath){
-			setScene("MainMenu");
-			isClickedDeath=false;
-		}
-		if(isClickedRestart){
-			setScene("MainScene");
-			isClickedRestart=false;
-		}
-		
-			if(sl.getSceneVO().sceneName.equals("MainScene")&& !isMainGameLoaded) loadMainGame();
-			if(sl.getSceneVO().sceneName.equals("MainScene")){
-			lvm.update(dt);
-		}
-	}
-	
-	public void render(){
-		sl.getEngine().update(Gdx.graphics.getDeltaTime());
-		if(sl.getSceneVO().sceneName.equals("MainScene")){
-			lvm.render();
-		}
-	}
-	
-	public void updateButtons(){
-		
 		if(sl.getSceneVO().sceneName.equals("MainMenu")){
 			
 			System.out.println("IN BUTTON LOOPO");
@@ -97,6 +65,10 @@ public class SceneManager {
 				}
 			});
 		}
+		if(isClicked){
+			setScene("MainScene");
+			isClicked=false;
+		}
 		if(sl.getSceneVO().sceneName.equals("DeathScene")){
 			
 			root.getChild("button1").getEntity().getComponent(ButtonComponent.class).addListener(new ButtonComponent.ButtonListener() {
@@ -109,24 +81,26 @@ public class SceneManager {
 				public void clicked() {
 					// TODO Auto-generated method stub
 					System.out.println("CLICKED");
-					isClickedDeath = true;
+					isClicked = true;
 					
 				}
 			});
-//			root.getChild("button2").getEntity().getComponent(ButtonComponent.class).addListener(new ButtonComponent.ButtonListener() {
-//				
-//				@Override
-//				public void touchUp() {}
-//				@Override
-//				public void touchDown() {}
-//				@Override
-//				public void clicked() {
-//					// TODO Auto-generated method stub
-//					System.out.println("CLICKED");
-//					isClickedRestart = true;
-//					
-//				}
-//			});
+		}
+		if(isClickedDeath){
+			setScene("MainScene");
+			isClicked=false;
+		}
+		
+			if(sl.getSceneVO().sceneName.equals("MainScene")&& !isMainGameLoaded) loadMainGame();
+			if(sl.getSceneVO().sceneName.equals("MainScene")){
+			lvm.update(dt);
+		}
+	}
+	
+	public void render(){
+		sl.getEngine().update(Gdx.graphics.getDeltaTime());
+		if(sl.getSceneVO().sceneName.equals("MainScene")){
+			lvm.render();
 		}
 	}
 	

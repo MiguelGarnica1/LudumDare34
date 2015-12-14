@@ -48,20 +48,18 @@ public class SceneManager {
 			setScene("MainScene");
 		}
 		
-		updateButtons();
-		
 		if(isClicked){
 			setScene("MainScene");
 			isClicked=false;
 		}
 		
 		if(isClickedDeath){
-			setScene("MainMenu");
-			isClickedDeath=false;
+			setScene("MainScene");
+			isClicked=false;
 		}
 		if(isClickedRestart){
 			setScene("MainScene");
-			isClickedRestart=false;
+			isClicked=false;
 		}
 		
 			if(sl.getSceneVO().sceneName.equals("MainScene")&& !isMainGameLoaded) loadMainGame();
@@ -113,20 +111,20 @@ public class SceneManager {
 					
 				}
 			});
-//			root.getChild("button2").getEntity().getComponent(ButtonComponent.class).addListener(new ButtonComponent.ButtonListener() {
-//				
-//				@Override
-//				public void touchUp() {}
-//				@Override
-//				public void touchDown() {}
-//				@Override
-//				public void clicked() {
-//					// TODO Auto-generated method stub
-//					System.out.println("CLICKED");
-//					isClickedRestart = true;
-//					
-//				}
-//			});
+			root.getChild("button2").getEntity().getComponent(ButtonComponent.class).addListener(new ButtonComponent.ButtonListener() {
+				
+				@Override
+				public void touchUp() {}
+				@Override
+				public void touchDown() {}
+				@Override
+				public void clicked() {
+					// TODO Auto-generated method stub
+					System.out.println("CLICKED");
+					isClickedRestart = true;
+					
+				}
+			});
 		}
 	}
 	

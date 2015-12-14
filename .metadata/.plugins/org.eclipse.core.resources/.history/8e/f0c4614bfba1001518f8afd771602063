@@ -56,7 +56,7 @@ public class SceneManager {
 		}
 		
 		if(isClickedDeath){
-			setScene("MainMenu");
+			setScene("MainScene");
 			isClickedDeath=false;
 		}
 		if(isClickedRestart){
