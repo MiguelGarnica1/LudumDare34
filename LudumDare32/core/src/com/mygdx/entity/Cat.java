@@ -3,6 +3,7 @@ package com.mygdx.entity;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.math.Vector2;
 import com.uwsoft.editor.renderer.components.DimensionsComponent;
@@ -28,6 +29,7 @@ public class Cat implements IScript {
 	private DimensionsComponent dimensionsComponent;
 	private SpriteAnimationComponent spriter;
 	private SpriteAnimationStateComponent spriterState;
+
 
 	private int sushiEaten;
 
@@ -74,6 +76,7 @@ public class Cat implements IScript {
 
 		velocity = new Vector2(.5f, .5f);
 		position = new Vector2(getX(), getY());
+
 	}
 
 	float elapsedTime = 0;
@@ -84,6 +87,7 @@ public class Cat implements IScript {
 		//If space is press, size increase, and change animationState to eat
 		if (Gdx.input.isKeyJustPressed(Keys.SPACE)) {
 			catAnimation = CatAnimation.eat;
+
 		}
 		
 		if (catAnimation == CatAnimation.eat && previousAnimation == CatAnimation.stand) {

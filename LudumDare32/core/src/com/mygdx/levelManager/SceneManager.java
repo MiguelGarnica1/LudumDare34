@@ -107,4 +107,9 @@ public class SceneManager {
 	public void setScene(String scene) {
 		sl.loadScene(scene, vp);
 	}
+	
+	public void dispose(){
+		lvm.dispose();
+		im.dispose();
+	}
 }

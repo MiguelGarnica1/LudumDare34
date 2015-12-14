@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.viewport.FitViewport;
@@ -39,7 +40,7 @@ public class LevelManager {
 
 	private int currentLevel = 0;
 	
-
+	private Sound eat;
 
 	public LevelManager(SceneLoader sceneLoader) {
 		sl = sceneLoader;
@@ -62,6 +63,9 @@ public class LevelManager {
 
 		sushis = new ArrayList<Sushi>();
 		sushis.add(new Sushi());
+		
+		
+		eat = Gdx.audio.newSound(Gdx.files.internal("eat.wav"));
 	}
 
 	private void setMaxSushiValue(int[] arr) {
@@ -115,6 +119,7 @@ public class LevelManager {
 
 	}
 
+	boolean eatCorrect = false;
 	public void update(float dt) {
 		//if (cat.getHealth() > 0) {
 			timeElap += Gdx.graphics.getDeltaTime();
@@ -130,20 +135,29 @@ public class LevelManager {
 					if (hud.getSushi().getId() == sushis.get(i).getId()) {
 						cat.getFat();
 						cat.setSushiEaten(cat.getSushiEaten() + 1);
+						sushis.get(i).dispose();
 						sushis.remove(i);
+						eatCorrect = true;
 					} else {
+						sushis.get(i).dispose();
 						sushis.remove(i);
 						cat.setSushiEaten(cat.getSushiEaten() + 1);
 						cat.setHealth(cat.getHealth() - 1);
 						System.out.println("wrong one u fool");
 					}
 				}else if(sushis.get(i).isInRangeY(224, 174, 80)){
+					sushis.get(i).dispose();
 					sushis.remove(i);
 				}
 				
 				if(sushis.get(i).getTimeElapsed() >= 16.5){
+					sushis.get(i).dispose();
 					sushis.remove(i);
 				}
+			}
+			if(eatCorrect){
+				eat.play();
+				eatCorrect = false;
 			}
 	//	}
 
@@ -179,7 +193,10 @@ public class LevelManager {
 	}
 
 	public void dispose() {
-
+		hud.dispose();
+		for(Sushi s: sushis){
+			s.dispose();
+		}
 	}
 	
 	public int[] getMaxSushi() {

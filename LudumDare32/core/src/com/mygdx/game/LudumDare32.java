@@ -25,7 +25,10 @@ public class LudumDare32 extends ApplicationAdapter {
 		sm.update(Gdx.graphics.getDeltaTime());
 		sm.render();
 		
-
+		
+	}
+	
+	public void dispose(){
 		
 	}
 }

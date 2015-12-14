@@ -110,7 +110,7 @@ public class HUD {
 		}
 		
 		batch.draw(chuteRight,85, 210, 65, 65);
-		batch.draw(chuteDown,70, 180, 50, 45);
+		batch.draw(chuteDown,75, 180, 50, 45);
 		batch.end();
 
 		progressBar.render(batch);
