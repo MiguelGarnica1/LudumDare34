@@ -7,7 +7,8 @@ import com.mygdx.game.LudumDare32;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-
+		
+		config.title = "Fat Cat: Cosmo's Quest";
 		config.width = 1024;
 		config.height = 768;
 
