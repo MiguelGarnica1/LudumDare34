@@ -53,6 +53,7 @@ public class HUD {
 	float spawnTimeElapsed;
 	float timeFlickerRight;
 	float timeFlickerDown;
+	
 	public void update(float dt) {
 		timeElap += dt;
 		spawnTimeElapsed += dt;

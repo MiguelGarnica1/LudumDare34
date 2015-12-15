@@ -91,21 +91,21 @@ public class Sushi implements Component {
 	}
 
 	public int generateRandomSushi(int bound) {
-		return randSushi.nextInt(bound) + 1;
+		return randSushi.nextInt(bound);
 	}
 
 	public void setSushiTexure(int id) {
 		this.id = id;
-		if (id == 1) {
+		if (id == 0) {
 			reg = sushis[0];
 		}
-		if (id == 2) {
+		if (id == 1) {
 			reg = sushis[1];
 		}
-		if (id == 3) {
+		if (id == 2) {
 			reg = sushis[2];
 		}
-		if (id == 4) {
+		if (id == 3) {
 			reg = sushis[3];
 		}
 	}

@@ -171,6 +171,8 @@ public class LevelManager {
 			mus.stop();
 			sl.loadScene("OuttroScene", vp);
 		}
+		
+		System.out.println("Hud Speed: "+ HUD.TIME);
 
 	}
 
@@ -266,7 +268,7 @@ public class LevelManager {
 			font.draw(sl.getBatch(), "Level " + currentLevel, 380, 100);
 		}
 
-		if (currentLevel < 2) {
+		if (currentLevel < 2 && cat.getSushiEaten() < 3) {
 			space.draw(sl.getBatch(), "Space to eat", 360, 300);
 		}
 		sl.getBatch().end();
@@ -278,7 +280,7 @@ public class LevelManager {
 		cat.setHealth(3);
 		levelup.play();
 		currentLevel++;
-		HUD.TIME -= HUD.TIME * .2f;
+		HUD.TIME -= HUD.TIME * .1f;
 		System.out.println("Level up to: " + currentLevel);
 		sushis.removeAll(sushis);
 	}

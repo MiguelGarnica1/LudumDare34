@@ -2,6 +2,7 @@ package com.mygdx.levelManager;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.uwsoft.editor.renderer.SceneLoader;
@@ -28,6 +29,7 @@ public class SceneManager {
 	private boolean isMainGameLoaded = false;
 	private boolean isIntroLoaded = false;
 	private boolean isOutroLoaded = false;
+	private Music mus;
 	
 	public SceneManager() {
 		sl = new SceneLoader();
@@ -42,6 +44,8 @@ public class SceneManager {
 		sl.loadScene("MainMenu", vp);
 		root = new ItemWrapper(sl.getRoot());
 		sl.addComponentsByTagName("button", ButtonComponent.class);
+		mus = Gdx.audio.newMusic(Gdx.files.internal("MenuMusic.mp3"));
+		mus.setLooping(true);
 	}
 
 
@@ -80,7 +84,9 @@ public class SceneManager {
 			}
 		}
 		
-		
+		if(sl.getSceneVO().sceneName.equals("MainMenu")){
+			mus.play();
+		}else mus.stop();
 	}
 
 	public void updateButtons(){
