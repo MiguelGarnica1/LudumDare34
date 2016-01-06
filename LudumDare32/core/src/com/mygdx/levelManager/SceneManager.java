@@ -147,8 +147,10 @@ public class SceneManager {
 	}
 	
 	public void dispose(){
+
 		im.dispose();
 		lvm.dispose();
 		om.dispose();
+
 	}
 }

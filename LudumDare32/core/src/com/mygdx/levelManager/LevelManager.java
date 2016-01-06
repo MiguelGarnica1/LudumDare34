@@ -41,12 +41,14 @@ public class LevelManager {
 	private float timeElap;
 
 	private int currentLevel = 0;
+
 	// level 0 and the last level dont count
 	// so the real maxlevel is MAXLEVEL - 2
 	public static final int MAXLEVEL = 7;
 	private Music mus;
 	private Sound eat, blwe, meow;
 	private Sound grownup, levelup;
+
 
 	public LevelManager(SceneLoader sceneLoader) {
 		sl = sceneLoader;
@@ -80,6 +82,7 @@ public class LevelManager {
 		mus.play();
 		mus.setVolume(.5f);
 		mus.setLooping(true);
+
 	}
 
 	private void setMaxSushiValue(int[] arr) {
@@ -133,8 +136,10 @@ public class LevelManager {
 
 	}
 
+
 	private boolean isEatRight = false;
 	private boolean isEatWrong = false;
+
 
 	public void update(float dt) {
 		// if (cat.getHealth() > 0) {
@@ -243,6 +248,7 @@ public class LevelManager {
 			}
 			///////////////////
 
+
 			// sushis.remove(sushiW.getSushi());
 		}
 	}
@@ -289,6 +295,7 @@ public class LevelManager {
 		mus.dispose();
 		hud.dispose();
 		for (Sushi s : sushis) {
+
 			s.dispose();
 		}
 	}

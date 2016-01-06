@@ -2,7 +2,9 @@ package com.mygdx.levelManager;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+
 import com.badlogic.gdx.audio.Music;
+
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -17,7 +19,9 @@ public class IntroManager {
 	private String[] quotes;
 	private int currentQ = 0;
 
+
 	private Texture bubble;
+
 	private BitmapFont font;
 	private BitmapFont next;
 
@@ -32,6 +36,7 @@ public class IntroManager {
 		introTexture[1] = new Texture("Intro Scene 2.png");
 		introTexture[2] = new Texture("Intro Scene 3.png");
 		currentT = introTexture[0];
+
 
 		quotes = new String[5];
 		quotes[0] = "Jaried: Meow..., fat cats get all the good things in life. "
@@ -61,6 +66,7 @@ public class IntroManager {
 		mus.setLooping(true);
 		bubble = new Texture("Speech Rectangle.png");
 
+
 	}
 
 	private float timeElapsed1;
@@ -73,6 +79,7 @@ public class IntroManager {
 		if (Gdx.input.isKeyJustPressed(Keys.ENTER) || Gdx.input.justTouched()) {
 			currentQ++;
 		}
+
 		timeElapsed1 += dt;
 		
 		
@@ -82,6 +89,7 @@ public class IntroManager {
 			if(timeElapsed1 < 10){
 				dialouge[0].play();
 			}
+
 		}
 		
 		//comos
@@ -146,6 +154,7 @@ public class IntroManager {
 
 	public void render(Batch batch) {
 		batch.begin();
+
 		batch.draw(currentT, 0, 0, sm.getVp().getCamera().viewportWidth, sm.getVp().getCamera().viewportHeight);
 		batch.draw(bubble, 300, 10, 430, 100);
 		font.draw(batch, quotes[currentQ], 330, 80);
@@ -158,4 +167,5 @@ public class IntroManager {
 			m.dispose();
 		}
 	}
+
 }
