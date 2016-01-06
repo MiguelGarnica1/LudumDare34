@@ -78,7 +78,7 @@ public class SceneManager {
 		}
 		
 		if(sl.getSceneVO().sceneName.equals("DeathScene")){
-			if(Gdx.input.isKeyJustPressed(Keys.ENTER)){
+			if((Gdx.input.isKeyJustPressed(Keys.ENTER) || Gdx.input.justTouched())){
 				setScene("MainScene");
 				isMainGameLoaded = false;
 			}

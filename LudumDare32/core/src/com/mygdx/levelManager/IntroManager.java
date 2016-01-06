@@ -70,13 +70,10 @@ public class IntroManager {
 	private float timeElapsed5;
 	
 	public void update(float dt) {
-		if (Gdx.input.isKeyJustPressed(Keys.ENTER)) {
+		if (Gdx.input.isKeyJustPressed(Keys.ENTER) || Gdx.input.justTouched()) {
 			currentQ++;
 		}
 		timeElapsed1 += dt;
-		
-		
-		
 		
 		
 		//jerry

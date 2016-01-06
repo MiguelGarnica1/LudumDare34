@@ -147,7 +147,7 @@ public class LevelManager {
 
 		removeSushiByWidth(dt);
 
-		if (Gdx.input.isKeyJustPressed(Keys.SPACE) && !isEatRight && !isEatWrong && currentLevel != 6) {
+		if ((Gdx.input.isKeyJustPressed(Keys.ENTER) || Gdx.input.justTouched()) && !isEatRight && !isEatWrong && currentLevel != 6) {
 			meow.play();
 		}
 		if (isEatRight) {
@@ -180,7 +180,7 @@ public class LevelManager {
 		for (int i = 0; i < sushis.size(); i++) {
 			sushis.get(i).update(dt);
 			if (sushis.get(i).isInRangeX(370, 425, 240 - hud.getSushi().getDimension().y / 2)
-					&& Gdx.input.isKeyJustPressed(Keys.SPACE)) {
+					&& (Gdx.input.isKeyJustPressed(Keys.ENTER) || Gdx.input.justTouched())) {
 				if (hud.getSushi().getId() == sushis.get(i).getId()) {
 					cat.getFat();
 					cat.setSushiEaten(cat.getSushiEaten() + 1);
@@ -211,7 +211,7 @@ public class LevelManager {
 			}
 		}
 
-		if (Gdx.input.isKeyJustPressed(Keys.SPACE) && sushis.size() > 0) {
+		if ((Gdx.input.isKeyJustPressed(Keys.ENTER) || Gdx.input.justTouched()) && sushis.size() > 0) {
 			ArrayList<SushiWidth> sushiList = new ArrayList<SushiWidth>();
 			for (int i = 0; i < sushis.size(); i++) {
 				Sushi temp = sushis.get(i);

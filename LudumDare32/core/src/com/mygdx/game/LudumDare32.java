@@ -3,12 +3,9 @@ package com.mygdx.game;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
-import com.mygdx.levelManager.LevelManager;
 import com.mygdx.levelManager.SceneManager;
 
 public class LudumDare32 extends ApplicationAdapter {
-
-	private LevelManager lvlm;
 	private SceneManager sm;
 	@Override
 	public void create () {
